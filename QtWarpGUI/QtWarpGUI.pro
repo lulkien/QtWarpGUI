@@ -1,7 +1,14 @@
 QT += quick
 
+INCLUDEPATH += \
+        hdr/controller
+
 SOURCES += \
+        src/controller/QML_Handler.cpp \
         src/main.cpp
+
+HEADERS += \
+    hdr/controller/QML_Handler.h
 
 qml_file.files += \
         qml/main.qml \
@@ -25,6 +32,3 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-

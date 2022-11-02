@@ -16,15 +16,15 @@ Window {
     onVisibilityChanged: {
         switch (root_window.visibility) {
         case Window.Minimized:
-            console.warn("[onVisibilityChanged] Visibility: Window.Hidden >>>>> root_window.hide()")
+            QML_Handler.qmlDebug("[onVisibilityChanged] Visibility: Window.Hidden >>>>> root_window.hide()")
             root_window.hide()
             break
         case Window.Hidden:
-            console.warn("[onVisibilityChanged] Visibility: Window.Hidden >>>>> systrayVisibleChanged(true)")
+            QML_Handler.qmlDebug("[onVisibilityChanged] Visibility: Window.Hidden >>>>> systrayVisibleChanged(true)")
             systrayVisibleChanged(true)
             break
         default:
-            console.warn("[onVisibilityChanged] Visibility:", root_window.visibility, ">>>> systrayVisibleChanged(false)")
+            QML_Handler.qmlDebug("[onVisibilityChanged] Visibility: " + root_window.visibility + " >>>> systrayVisibleChanged(false)")
             systrayVisibleChanged(false)
             break
         }
