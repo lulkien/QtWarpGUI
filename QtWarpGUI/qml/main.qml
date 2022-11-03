@@ -1,21 +1,29 @@
 import QtQuick 2.15
-import "components" as KComp
+import "components" as KComponent
 
-KComp.KWindow {
+KComponent.KWindow {
     id: root
-    width: 640
-    height: 480
+    width: Constants.WINDOW_WIDTH
+    height: Constants.WINDOW_HEIGHT
     visible: true
     title: qsTr("Hello World")
 
-    onSystrayVisibleChanged: (state) => {
+    onNotifySystrayVisibleChanged: (state) => {
                                  tray.visible = state
                              }
 
-    KComp.KSystemTray {
+    KComponent.KSystemTray {
         id: tray
         onReqShowApp: {
-            root.show()
+            root.showWindow()
+        }
+    }
+
+    KComponent.KTabBar {
+        id: tabbar
+        anchors {
+            left: root.left
+            top: root.top
         }
     }
 }

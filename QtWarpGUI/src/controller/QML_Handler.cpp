@@ -1,5 +1,5 @@
 #include "QML_Handler.h"
-#include <QDebug>
+#include "Common.h"
 
 QML_Handler &QML_Handler::instance()
 {
@@ -9,7 +9,12 @@ QML_Handler &QML_Handler::instance()
 
 void QML_Handler::qmlDebug(QString msg)
 {
-    qDebug().noquote() << "[QML]" << msg;
+    QML_LOG << msg;
+}
+
+void QML_Handler::qmlSendEvent(WarpEvents::Events _event)
+{
+    LOG << _event;
 }
 
 QML_Handler::QML_Handler()

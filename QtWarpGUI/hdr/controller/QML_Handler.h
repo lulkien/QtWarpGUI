@@ -2,6 +2,7 @@
 #define QML_HANDLER_H
 
 #include <QObject>
+#include "WarpEvents.h"
 
 class QML_Handler final : public QObject
 {
@@ -11,6 +12,7 @@ public:
 
 public slots:
     void qmlDebug(QString msg);
+    void qmlSendEvent(WarpEvents::Events _event);
 
 private:
     QML_Handler();
