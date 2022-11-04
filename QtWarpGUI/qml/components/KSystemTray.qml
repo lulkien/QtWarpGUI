@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import Qt.labs.platform
+import com.warp.custom
 
 SystemTrayIcon {
     id: root_systray
@@ -7,7 +8,8 @@ SystemTrayIcon {
     // signal declare
     signal reqShowApp()
 
-    icon.source: "qrc:/res/images/cloudflare.png"
+    icon.mask: true
+    icon.source: Constants.TRAY_ICO
 
     // Menu
     menu: Menu {

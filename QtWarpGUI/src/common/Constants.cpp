@@ -1,13 +1,18 @@
 #include "Constants.h"
 
+Constants Constants::self;
+
 Constants &Constants::instance()
 {
-    static Constants _self;
-    return _self;
+    return self;
 }
 
-Constants::Constants(QObject *parent)
-    : QObject{parent}
+Constants *Constants::create(QQmlEngine *, QJSEngine *)
 {
+    return &self;
+}
 
+Constants::Constants()
+{
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 }

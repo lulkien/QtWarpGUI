@@ -1,10 +1,14 @@
 import QtQuick 2.15
 import "common" as KCommon
+import com.warp.custom
 
 Item {
     id: root_bar
     width: Constants.TAB_SIZE
     height: Constants.WINDOW_HEIGHT
+
+    // custom properties
+    property int selectedIndex: 0
 
     Rectangle {
         id: spacer
@@ -21,16 +25,16 @@ Item {
         id: column_layout
         Repeater {
             id: repeater
-            model: 5
+            model: tabModel
             delegate: KCommon.KTabItem {
-                id: delegate
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: QML_Handler.qmlDebug("Clicked at " + index)
+                name: Name
+                icoSource: Icon
+                onTabClicked: {
+                    root_bar.selectedIndex = index
+                    QML_Handler.qmlDebug("Tab selected: " + root_bar.selectedIndex)
                 }
             }
         }
-
     }
 
 }

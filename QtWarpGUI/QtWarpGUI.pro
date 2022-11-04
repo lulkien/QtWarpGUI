@@ -1,22 +1,27 @@
-QT += quick
+QT += quick qml
+CONFIG += qmltypes
 
 INCLUDEPATH += \
         hdr/controller \
         hdr/common \
-        hdr/utils
+        hdr/utils \
+        hdr/model
 
 SOURCES += \
+        src/main.cpp \
         src/common/Constants.cpp \
         src/common/WarpEvents.cpp \
         src/controller/QML_Handler.cpp \
-        src/main.cpp
+        src/model/TabListModel.cpp
 
 HEADERS += \
     hdr/common/Common.h \
     hdr/common/Constants.h \
     hdr/common/WarpEvents.h \
-    hdr/controller/QML_Handler.h
+    hdr/controller/QML_Handler.h \
+    hdr/model/TabListModel.h
 
+# Declare QML files
 qml_file.files += \
         qml/main.qml \
         qml/components/KSystemTray.qml \
@@ -25,11 +30,21 @@ qml_file.files += \
         qml/components/common/KTabItem.qml
 qml_file.prefix = /$${TARGET}
 
+# Declare image files
 img_files.files += \
-        res/images/cloudflare.png
+        res/images/cloudflare.svg   \
+        res/images/home.svg         \
+        res/images/user.svg         \
+        res/images/setup.svg        \
+        res/images/info.svg
 img_files.prefix = /$${TARGET}
 
 RESOURCES += qml_file img_files
+
+# Set QML_IMPORT_NAME
+QML_IMPORT_NAME = com.warp.custom
+QML_IMPORT_MAJOR_VERSION = 1
+QML_IMPORT_MINOR_VERSION = 0
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

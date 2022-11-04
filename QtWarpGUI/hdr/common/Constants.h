@@ -4,29 +4,55 @@
 #include <QObject>
 #include <QColor>
 #include <QString>
+#include <QUrl>
+#include <QQmlEngine>
+#include <QGuiApplication>
+#include <QScreen>
 
-#define DEFINES(_type, _name, _value) \
+#ifndef DEFINE_MACROS
+#define DEFINE_MACROS
+#define DEFINES(_type, _name, _value)           \
     Q_PROPERTY(_type _name READ _name CONSTANT) \
     public: _type _name() { return _value; }
+#endif
 
 class Constants final : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
 public:
     static Constants &instance();
+    static Constants *create(QQmlEngine *, QJSEngine *);
 
 private:
-    explicit Constants(QObject *parent = nullptr);
+    static Constants self;
+    Constants();
 
     // Start define
-    DEFINES(int,    WINDOW_WIDTH,   640)
-    DEFINES(int,    WINDOW_HEIGHT,  480)
+    DEFINES(int,    MONITOR_WIDTH,  QGuiApplication::primaryScreen()->geometry().width())
+    DEFINES(int,    MONITOR_HEIGHT, QGuiApplication::primaryScreen()->geometry().height())
+    DEFINES(int,    WINDOW_WIDTH,   static_cast<int>(MONITOR_WIDTH() * 0.6f))
+    DEFINES(int,    WINDOW_HEIGHT,  static_cast<int>(MONITOR_HEIGHT() * 0.6f))
 
-    DEFINES(int,    TAB_SIZE,       80)
+    // Item size
+    DEFINES(int,    TAB_SIZE,       static_cast<int>(WINDOW_HEIGHT() / 6))
+    DEFINES(int,    TAB_ICO_SIZE,   static_cast<int>(TAB_SIZE() * 0.4f))
 
     // Define color
     DEFINES(QColor, BLACK,          "#111111")
+    DEFINES(QColor, LIGHT_GRAY,     "#CACACA")
+    DEFINES(QColor, INVISIBLE,      "transparent")
 
+    // QML Url
+    DEFINES(QUrl,   MAIN_QML,       u"qrc:/QtWarpGUI/qml/main.qml"_qs)
+
+    // Images Url
+    DEFINES(QUrl,   TRAY_ICO,       u"qrc:/QtWarpGUI/res/images/cloudflare.svg"_qs)
+    DEFINES(QUrl,   HOME_ICO,       u"qrc:/QtWarpGUI/res/images/home.svg"_qs)
+    DEFINES(QUrl,   USER_ICO,       u"qrc:/QtWarpGUI/res/images/user.svg"_qs)
+    DEFINES(QUrl,   SETUP_ICO,      u"qrc:/QtWarpGUI/res/images/setup.svg"_qs)
+    DEFINES(QUrl,   INFO_ICO,       u"qrc:/QtWarpGUI/res/images/info.svg"_qs)
 };
 
 #endif // CONSTANTS_H

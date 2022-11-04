@@ -3,8 +3,8 @@
 
 #include <QDebug>
 
-#define QML_LOG qDebug().noquote() << "[QML] "
-#define LOG     qDebug().noquote() << "[" << __PRETTY_FUNCTION__ << "][" << __LINE__ << "] "
+#define QML_LOG qDebug().noquote() << "[QmlMessage] "
+#define LOG     qDebug().noquote() << "[" << __FUNCTION__ << "][" << __LINE__ << "] "
 
 // custom import qml
 #define QML_IMPORT          "com.warp.custom"
