@@ -30,7 +30,6 @@ Item {
         color: Constants.ALMOST_BLACK
         width: 6
         height: root_bar.height
-        opacity: 0.8
     }
 
     KCommon.KTabIndexer {
