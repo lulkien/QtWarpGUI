@@ -1,4 +1,4 @@
-import QtQuick 2.15
+import QtQuick
 import Qt.labs.platform
 import com.warp.custom
 

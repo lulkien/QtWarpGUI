@@ -24,10 +24,11 @@ HEADERS += \
 # Declare QML files
 qml_file.files += \
         qml/main.qml \
-        qml/components/KSystemTray.qml \
         qml/components/KWindow.qml \
-        qml/components/KTabBar.qml \
-        qml/components/common/KTabItem.qml
+        qml/components/KTabBar.qml  \
+        qml/components/KSystemTray.qml \
+        qml/components/common/KTabItem.qml \
+        qml/components/common/KTabIndexer.qml
 qml_file.prefix = /$${TARGET}
 
 # Declare image files
@@ -56,4 +57,6 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
 

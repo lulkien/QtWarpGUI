@@ -20,6 +20,11 @@ KComponent.KWindow {
         }
     }
 
+    Rectangle {
+        anchors.fill: parent
+        color: Constants.GRAY
+    }
+
     KComponent.KTabBar {
         id: tabbar
         anchors {

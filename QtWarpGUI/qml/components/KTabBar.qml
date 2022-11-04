@@ -1,6 +1,7 @@
-import QtQuick 2.15
-import "common" as KCommon
+import QtQuick
+import Qt5Compat.GraphicalEffects
 import com.warp.custom
+import "common" as KCommon
 
 Item {
     id: root_bar
@@ -10,15 +11,40 @@ Item {
     // custom properties
     property int selectedIndex: 0
 
+    LinearGradient {
+        anchors.fill: parent
+        start: Qt.point(0, 0)
+        end: Qt.point(0, Constants.WINDOW_HEIGHT)
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: Constants.ORANGE_CLOUDFLARE_L }
+            GradientStop { position: 1.0; color: Constants.ORANGE_CLOUDFLARE_D }
+        }
+    }
+
     Rectangle {
         id: spacer
         anchors {
-            right: root_bar.right
+            horizontalCenter: root_bar.right
             verticalCenter: root_bar.verticalCenter
         }
-        color: Constants.BLACK
-        width: 1
+        color: Constants.ALMOST_BLACK
+        width: 6
         height: root_bar.height
+        opacity: 0.8
+    }
+
+    KCommon.KTabIndexer {
+        id: indexer
+
+        anchors {
+            top: parent.top
+            topMargin: ((root_bar.selectedIndex + 0.5) * Constants.TAB_SIZE) - (indexer.height / 2)
+            horizontalCenter: root_bar.horizontalCenter
+        }
+
+        Behavior on anchors.topMargin {
+            NumberAnimation { duration: 200 }
+        }
     }
 
     Column {
@@ -29,6 +55,7 @@ Item {
             delegate: KCommon.KTabItem {
                 name: Name
                 icoSource: Icon
+                selected: root_bar.selectedIndex === index
                 onTabClicked: {
                     root_bar.selectedIndex = index
                     QML_Handler.qmlDebug("Tab selected: " + root_bar.selectedIndex)
