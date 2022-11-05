@@ -30,6 +30,7 @@ HEADERS += \
 qml_file.files += \
         qml/main.qml \
         qml/components/common/KSwitchButton.qml \
+        qml/components/common/KSettingItem.qml \
         qml/components/common/KTabItem.qml \
         qml/components/common/KTabIndexer.qml \
         qml/components/KSystemTray.qml \
@@ -70,6 +71,4 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-DISTFILES +=
 

@@ -19,7 +19,7 @@ AppModel::~AppModel()
 }
 
 AppModel::AppModel()
-    : m_currentTab { 0 }
+    : m_currentTab { 2 }
     , m_warpEnabled { false }
 {
     LOG;

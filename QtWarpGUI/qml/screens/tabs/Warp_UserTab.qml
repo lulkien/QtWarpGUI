@@ -5,7 +5,7 @@ Rectangle {
   id: root_usertab
   width: Constants.TAB_PAGE_WIDTH
   height: Constants.TAB_PAGE_HEIGHT
-  color: Constants.SAD_BLUE
+  color: Constants.EVENING_BLACK
 
   Text {
     id: text

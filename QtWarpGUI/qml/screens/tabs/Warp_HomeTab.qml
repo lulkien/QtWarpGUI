@@ -6,7 +6,7 @@ Rectangle {
   id: root_hometab
   width: Constants.TAB_PAGE_WIDTH
   height: Constants.TAB_PAGE_HEIGHT
-  color: Constants.SAD_BLUE
+  color: Constants.EVENING_BLACK
 
   KCommon.KSwitchButton {
     id: switchBtn
@@ -19,12 +19,4 @@ Rectangle {
       AppModel.warpEnabled = !AppModel.warpEnabled
     }
   }
-
-  //  Text {
-  //    id: text
-  //    anchors.centerIn: parent
-  //    text: "This is Home Page!!!"
-  //    font.pixelSize: 30
-  //    font.bold: true
-  //  }
 }
