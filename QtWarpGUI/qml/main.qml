@@ -10,20 +10,9 @@ KComponent.KWindow {
   visible: true
   title: qsTr("QtWarpGUI")
 
-  onNotifySystrayVisibleChanged: state => {
-                                   tray.visible = state
-                                 }
-
-  KComponent.KSystemTray {
-    id: tray
-    onReqShowApp: {
-      root.showWindow()
-    }
-  }
-
   Loader {
     id: main_loader
-    anchors.fill: root
+    anchors.fill: parent
     source: Constants.MAIN_SCREEN_QML
   }
 }

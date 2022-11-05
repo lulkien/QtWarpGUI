@@ -18,7 +18,12 @@ void QML_Handler::qmlDebug(QString msg)
     QML_LOG << msg;
 }
 
-void QML_Handler::qmlSendEvent(WarpEvents::Events _event)
+void QML_Handler::qmlSendGUIEvent(WarpEvents::GUIEvents _event)
+{
+    LOG << _event;
+}
+
+void QML_Handler::qmlSendLogicEvent(WarpEvents::RequestEvent _event)
 {
     LOG << _event;
 }

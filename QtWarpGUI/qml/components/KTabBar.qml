@@ -8,9 +8,6 @@ Item {
   width: Constants.TAB_SIZE
   height: Constants.WINDOW_HEIGHT
 
-  // custom properties
-  property int selectedIndex: 0
-
   LinearGradient {
     anchors.fill: parent
     start: Qt.point(0, 0)
@@ -43,7 +40,7 @@ Item {
 
     anchors {
       top: parent.top
-      topMargin: ((root_bar.selectedIndex + 0.5) * Constants.TAB_SIZE) - (indexer.height / 2)
+      topMargin: ((AppModel.currentTab + 0.5) * Constants.TAB_SIZE) - (indexer.height / 2)
       horizontalCenter: root_bar.horizontalCenter
     }
 
@@ -62,10 +59,12 @@ Item {
       delegate: KCommon.KTabItem {
         name: Name
         icoSource: Icon
-        selected: root_bar.selectedIndex === index
+        selected: AppModel.currentTab === index
         onTabClicked: {
-          root_bar.selectedIndex = index
-          QML_Handler.qmlDebug("Tab selected: " + root_bar.selectedIndex)
+          if (index !== AppModel.currentTab) {
+            AppModel.currentTab = index
+            QML_Handler.qmlDebug("Tab selected: " + AppModel.currentTab)
+          }
         }
       }
     }

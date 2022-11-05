@@ -9,8 +9,10 @@ Item {
 
   Rectangle {
     id: core_indexer
-    width: Constants.TAB_SIZE * 1.7
-    height: Constants.TAB_SIZE * 0.7
+    readonly property double widthFactor: 1.7 // modify this offset for better looking
+    readonly property double heightFactor: .7 // modify this offset for better looking
+    width: Constants.TAB_SIZE * core_indexer.widthFactor
+    height: Constants.TAB_SIZE * core_indexer.heightFactor
     radius: height / 2
     anchors {
       horizontalCenter: root_indexer.horizontalCenter
@@ -21,8 +23,10 @@ Item {
 
   Rectangle {
     id: mask
-    width: core_indexer.width * 0.95
-    height: core_indexer.height * 0.9
+    readonly property double widthFactor: .95 // modify this offset for better looking
+    readonly property double heightFactor: .9 // modify this offset for better looking
+    width: core_indexer.width * mask.widthFactor
+    height: core_indexer.height * mask.heightFactor
     radius: height / 2
     anchors {
       horizontalCenter: core_indexer.horizontalCenter
@@ -34,7 +38,7 @@ Item {
     anchors.fill: mask
     source: mask
     start: Qt.point(0, 0)
-    end: Qt.point(Constants.TAB_SIZE * 1.7, 0)
+    end: Qt.point(mask.width, 0)
     gradient: Gradient {
       GradientStop {
         position: 0.0

@@ -16,7 +16,8 @@ public:
 
 public slots:
     void qmlDebug(QString msg);
-    void qmlSendEvent(WarpEvents::Events _event);
+    void qmlSendGUIEvent(WarpEvents::GUIEvents _event);
+    void qmlSendLogicEvent(WarpEvents::RequestEvent _event);
 
 private:
     static QML_Handler self;

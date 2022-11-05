@@ -12,6 +12,7 @@ SOURCES += \
         src/common/Constants.cpp \
         src/common/WarpEvents.cpp \
         src/controller/QML_Handler.cpp \
+        src/model/AppModel.cpp \
         src/model/TabListModel.cpp
 
 HEADERS += \
@@ -19,6 +20,7 @@ HEADERS += \
     hdr/common/Constants.h \
     hdr/common/WarpEvents.h \
     hdr/controller/QML_Handler.h \
+    hdr/model/AppModel.h \
     hdr/model/TabListModel.h
 
 # Declare QML files
@@ -29,7 +31,7 @@ qml_file.files += \
         qml/components/KSystemTray.qml \
         qml/components/common/KTabItem.qml \
         qml/components/common/KTabIndexer.qml \
-        qml/screens/Warp_HomePage.qml \
+        qml/screens/tabs/Warp_HomeTab.qml \
         qml/screens/Warp_MainScreen.qml
 qml_file.prefix = /$${TARGET}
 
