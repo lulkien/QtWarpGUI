@@ -26,7 +26,8 @@ Item {
       left: root_settingItem.left
       leftMargin: root_settingItem.textMargin
     }
-    font.pixelSize: root_settingItem.height / 3.5
+    font.pixelSize: root_settingItem.height / 3.75
+    //    font.bold: true
     text: root_settingItem.label
     color: root_settingItem.contentColor
   }
@@ -42,7 +43,7 @@ Item {
       left: root_settingItem.left
       leftMargin: root_settingItem.textMargin
     }
-    font.pixelSize: setting_text.font.pixelSize
+    font: setting_text.font
     text: setting_text.text
     color: setting_text.color
   }
@@ -58,7 +59,7 @@ Item {
       left: root_settingItem.left
       leftMargin: root_settingItem.textMargin
     }
-    font.pixelSize: root_settingItem.height / 4.5
+    font.pixelSize: root_settingItem.height / 5
     text: root_settingItem.guideText
     color: root_settingItem.contentColor
   }
