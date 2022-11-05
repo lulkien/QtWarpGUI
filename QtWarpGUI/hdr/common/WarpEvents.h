@@ -34,6 +34,9 @@ public:
     enum RequestEvent {
         EVT_REQ_NONE = EVT_GUI_MAX + 1,
 
+        EVT_REQ_WARP_ENABLE,
+        EVT_REQ_WARP_DISABLE,
+
         EVT_REQ_MAX = 128,
     };
     Q_ENUM(RequestEvent)

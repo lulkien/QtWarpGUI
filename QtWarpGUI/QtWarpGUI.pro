@@ -2,12 +2,14 @@ QT += quick qml
 CONFIG += qmltypes
 
 INCLUDEPATH += \
+        hdr \
         hdr/controller \
         hdr/common \
         hdr/utils \
         hdr/model
 
 SOURCES += \
+        src/AppEngine.cpp \
         src/main.cpp \
         src/common/Constants.cpp \
         src/common/WarpEvents.cpp \
@@ -16,6 +18,7 @@ SOURCES += \
         src/model/TabListModel.cpp
 
 HEADERS += \
+    hdr/AppEngine.h \
     hdr/common/Common.h \
     hdr/common/Constants.h \
     hdr/common/WarpEvents.h \
@@ -26,13 +29,19 @@ HEADERS += \
 # Declare QML files
 qml_file.files += \
         qml/main.qml \
-        qml/components/KWindow.qml \
-        qml/components/KTabBar.qml  \
-        qml/components/KSystemTray.qml \
+        qml/components/common/KSwitchButton.qml \
         qml/components/common/KTabItem.qml \
         qml/components/common/KTabIndexer.qml \
+        qml/components/KSystemTray.qml \
+        qml/components/KTabBar.qml  \
+        qml/components/KTabLoader.qml \
+        qml/components/KWindow.qml \
         qml/screens/tabs/Warp_HomeTab.qml \
+        qml/screens/tabs/Warp_InfoTab.qml \
+        qml/screens/tabs/Warp_SetupTab.qml \
+        qml/screens/tabs/Warp_UserTab.qml \
         qml/screens/Warp_MainScreen.qml
+
 qml_file.prefix = /$${TARGET}
 
 # Declare image files

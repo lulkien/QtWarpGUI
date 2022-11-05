@@ -30,6 +30,7 @@ private:
     Constants();
 
     // Start define
+    // Window size
     DEFINES(int,    MONITOR_WIDTH,          QGuiApplication::primaryScreen()->geometry().width())
     DEFINES(int,    MONITOR_HEIGHT,         QGuiApplication::primaryScreen()->geometry().height())
     DEFINES(int,    WINDOW_WIDTH,           static_cast<int>(MONITOR_WIDTH() * 0.5f))
@@ -38,12 +39,16 @@ private:
     // Item size
     DEFINES(int,    TAB_SIZE,               static_cast<int>(WINDOW_HEIGHT() / 6))
     DEFINES(int,    TAB_ICO_SIZE,           static_cast<int>(TAB_SIZE() * 0.4f))
+    DEFINES(int,    TAB_PAGE_WIDTH,         WINDOW_WIDTH() - TAB_SIZE())
+    DEFINES(int,    TAB_PAGE_HEIGHT,        WINDOW_HEIGHT())
 
     // Define color
     DEFINES(QColor, ALMOST_BLACK,           "#111111")
+    DEFINES(QColor, DARK_GRAY,              "#393939")
     DEFINES(QColor, BLUE_SKY,               "#3282CD")
     DEFINES(QColor, SELECTION_GREEN,        "#39C668")
     DEFINES(QColor, SELECTION_BLUE,         "#408CFA")
+    DEFINES(QColor, SAD_BLUE,               "#5C84AA")
     DEFINES(QColor, GRAY,                   "#878787")
     DEFINES(QColor, MAGENTA,                "#C63997")
     DEFINES(QColor, LIGHT_GRAY,             "#CACACA")
@@ -55,7 +60,10 @@ private:
     // QML Url
     DEFINES(QUrl,   MAIN_QML,           u"qrc:/QtWarpGUI/qml/main.qml"_qs)
     DEFINES(QUrl,   MAIN_SCREEN_QML,    u"qrc:/QtWarpGUI/qml/screens/Warp_MainScreen.qml"_qs)
-    DEFINES(QUrl,   HOME_PAGE_QML,      u"qrc:/QtWarpGUI/qml/screens/Warp_HomePage.qml"_qs)
+    DEFINES(QUrl,   HOME_TAB_QML,       u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_HomeTab.qml"_qs)
+    DEFINES(QUrl,   INFO_TAB_QML,       u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_InfoTab.qml"_qs)
+    DEFINES(QUrl,   SETUP_TAB_QML,      u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_SetupTab.qml"_qs)
+    DEFINES(QUrl,   USER_TAB_QML,       u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_UserTab.qml"_qs)
 
     // Images Url
     DEFINES(QUrl,   TRAY_ICO,           u"qrc:/QtWarpGUI/res/images/cloudflare.svg"_qs)

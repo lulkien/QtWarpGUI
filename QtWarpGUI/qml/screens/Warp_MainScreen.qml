@@ -9,9 +9,19 @@ Rectangle {
   color: Constants.GRAY
 
   KComponent.KTabBar {
-    id: tabbar
+    id: menubar
+    z: 1
     anchors {
       left: root_main.left
+      top: root_main.top
+    }
+  }
+
+  KComponent.KTabLoader {
+    id: tabloader
+    z: 0
+    anchors {
+      right: root_main.right
       top: root_main.top
     }
   }

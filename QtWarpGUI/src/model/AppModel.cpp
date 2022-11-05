@@ -20,6 +20,7 @@ AppModel::~AppModel()
 
 AppModel::AppModel()
     : m_currentTab { 0 }
+    , m_warpEnabled { false }
 {
     LOG;
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
@@ -36,4 +37,17 @@ void AppModel::setCurrentTab(int newCurrentTab)
         return;
     m_currentTab = newCurrentTab;
     emit currentTabChanged();
+}
+
+bool AppModel::warpEnabled() const
+{
+    return m_warpEnabled;
+}
+
+void AppModel::setWarpEnabled(bool newWarpEnabled)
+{
+    if (m_warpEnabled == newWarpEnabled)
+        return;
+    m_warpEnabled = newWarpEnabled;
+    emit warpEnabledChanged();
 }
