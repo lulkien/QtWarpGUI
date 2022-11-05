@@ -28,7 +28,9 @@ qml_file.files += \
         qml/components/KTabBar.qml  \
         qml/components/KSystemTray.qml \
         qml/components/common/KTabItem.qml \
-        qml/components/common/KTabIndexer.qml
+        qml/components/common/KTabIndexer.qml \
+        qml/screens/Warp_HomePage.qml \
+        qml/screens/Warp_MainScreen.qml
 qml_file.prefix = /$${TARGET}
 
 # Declare image files

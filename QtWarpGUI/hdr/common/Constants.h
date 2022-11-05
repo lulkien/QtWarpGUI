@@ -32,8 +32,8 @@ private:
     // Start define
     DEFINES(int,    MONITOR_WIDTH,          QGuiApplication::primaryScreen()->geometry().width())
     DEFINES(int,    MONITOR_HEIGHT,         QGuiApplication::primaryScreen()->geometry().height())
-    DEFINES(int,    WINDOW_WIDTH,           static_cast<int>(MONITOR_WIDTH() * 0.6f))
-    DEFINES(int,    WINDOW_HEIGHT,          static_cast<int>(MONITOR_HEIGHT() * 0.6f))
+    DEFINES(int,    WINDOW_WIDTH,           static_cast<int>(MONITOR_WIDTH() * 0.5f))
+    DEFINES(int,    WINDOW_HEIGHT,          static_cast<int>(MONITOR_HEIGHT() * 0.5f))
 
     // Item size
     DEFINES(int,    TAB_SIZE,               static_cast<int>(WINDOW_HEIGHT() / 6))
@@ -54,6 +54,8 @@ private:
 
     // QML Url
     DEFINES(QUrl,   MAIN_QML,           u"qrc:/QtWarpGUI/qml/main.qml"_qs)
+    DEFINES(QUrl,   MAIN_SCREEN_QML,    u"qrc:/QtWarpGUI/qml/screens/Warp_MainScreen.qml"_qs)
+    DEFINES(QUrl,   HOME_PAGE_QML,      u"qrc:/QtWarpGUI/qml/screens/Warp_HomePage.qml"_qs)
 
     // Images Url
     DEFINES(QUrl,   TRAY_ICO,           u"qrc:/QtWarpGUI/res/images/cloudflare.svg"_qs)
