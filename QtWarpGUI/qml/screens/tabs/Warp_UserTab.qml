@@ -13,5 +13,6 @@ Rectangle {
     text: "This is User Page!!!"
     font.pixelSize: 30
     font.bold: true
+    color: Constants.LIGHT_GRAY
   }
 }

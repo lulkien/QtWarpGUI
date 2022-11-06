@@ -23,9 +23,10 @@ void QML_Handler::qmlSendGUIEvent(WarpEvents::GUIEvents _event)
     LOG << _event;
 }
 
-void QML_Handler::qmlSendLogicEvent(WarpEvents::RequestEvent _event)
+void QML_Handler::qmlSendRequestEvent(WarpEvents::RequestEvent _event)
 {
     LOG << _event;
+    emit notifyRequestEvent(_event);
 }
 
 QML_Handler::QML_Handler()

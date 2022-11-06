@@ -13,16 +13,21 @@ Rectangle {
     width: root_setuptab.width / 2
     height: root_setuptab.height
     Column {
-      KCommon.KSettingItem {
+      KCommon.KSwitchSetting {
         id: setting_1
         label: "Start warp-svc.service"
+        isEnabled: AppModel.tmpWarpSvcStarted
+        buttonReady: !AppModel.warpSvcStarting
+        onSwitched: {
+          QML_Handler.qmlDebug("Start warp-svc.service clicked")
+          AppModel.warpSvcStarting = true
+          AppModel.tmpWarpSvcStarted = !AppModel.tmpWarpSvcStarted
+          QML_Handler.qmlSendRequestEvent(
+                AppModel.tmpWarpSvcStarted ? WarpEvents.EVT_REQ_START_WARP_SERVICE : WarpEvents.EVT_REQ_STOP_WARP_SERVICE)
+        }
       }
-      KCommon.KSettingItem {
+      KCommon.KSwitchSetting {
         id: setting_2
-        label: "Status warp-svc.service"
-      }
-      KCommon.KSettingItem {
-        id: setting_3
         label: "Enable warp-svc.service"
         guideText: "Autostart warp-svc.service on booting"
       }

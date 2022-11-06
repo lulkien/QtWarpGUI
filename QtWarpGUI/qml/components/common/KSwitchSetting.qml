@@ -8,10 +8,16 @@ Item {
   property string label: ""
   property string guideText: ""
   property color contentColor: Constants.LIGHT_GRAY
+  property bool isEnabled: false
+  property bool buttonReady: true
 
   // readonly properties
   readonly property int textWidth: width * 0.75
   readonly property int textMargin: width * 0.13
+  readonly property int fontSize: height * 0.26
+
+  // signal declare
+  signal switched
 
   width: Constants.SETTING_ITEM_WIDTH
   height: Constants.SETTING_ITEM_HEIGHT
@@ -26,8 +32,7 @@ Item {
       left: root_settingItem.left
       leftMargin: root_settingItem.textMargin
     }
-    font.pixelSize: root_settingItem.height / 3.75
-    //    font.bold: true
+    font.pixelSize: root_settingItem.fontSize
     text: root_settingItem.label
     color: root_settingItem.contentColor
   }
@@ -35,7 +40,7 @@ Item {
   Text {
     id: setting_text_2
     visible: !setting_text.visible
-    width: setting_text.width
+    width: root_settingItem.textWidth
     clip: true
     anchors {
       verticalCenter: root_settingItem.verticalCenter
@@ -44,8 +49,8 @@ Item {
       leftMargin: root_settingItem.textMargin
     }
     font: setting_text.font
-    text: setting_text.text
-    color: setting_text.color
+    text: root_settingItem.label
+    color: root_settingItem.contentColor
   }
 
   Text {
@@ -62,6 +67,22 @@ Item {
     font.pixelSize: root_settingItem.height / 5
     text: root_settingItem.guideText
     color: root_settingItem.contentColor
+  }
+
+  KSwitchButton {
+    id: switch_btn
+    readonly property int rightMargin: root_settingItem.width * 0.1
+    anchors {
+      verticalCenter: root_settingItem.verticalCenter
+      right: root_settingItem.right
+      rightMargin: switch_btn.rightMargin
+    }
+    isEnabled: root_settingItem.isEnabled
+    buttonReady: root_settingItem.buttonReady
+    switchSize: 60
+    onClicked: {
+      root_settingItem.switched()
+    }
   }
 
   Rectangle {

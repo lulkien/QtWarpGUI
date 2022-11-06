@@ -19,22 +19,22 @@ Rectangle {
 
   Image {
     id: ico
+    // readonlt properties
+    readonly property int selectedHorizontalOffset: (Constants.TAB_SIZE / 2)
+
     width: Constants.TAB_ICO_SIZE
     height: Constants.TAB_ICO_SIZE
     anchors {
-      verticalCenter: parent.verticalCenter
-      horizontalCenter: parent.horizontalCenter
-      horizontalCenterOffset: selected ? (Constants.TAB_SIZE / 2) : 0
+      verticalCenter: root_tabItem.verticalCenter
+      horizontalCenter: root_tabItem.horizontalCenter
+      horizontalCenterOffset: root_tabItem.selected ? ico.selectedHorizontalOffset : 0
     }
+    antialiasing: true
     source: root_tabItem.icoSource
     sourceSize {
       width: Constants.TAB_ICO_SIZE
       height: Constants.TAB_ICO_SIZE
     }
-
-    antialiasing: true
-    smooth: true
-
     Behavior on anchors.horizontalCenterOffset {
       NumberAnimation {
         duration: 200
@@ -44,14 +44,19 @@ Rectangle {
 
   Text {
     id: label
+
+    // readonly properties
+    readonly property int leftOffset: (Constants.TAB_SIZE * 0.15)
+    readonly property int fontSize: Constants.TAB_ICO_SIZE * 0.45
+
     anchors {
-      verticalCenter: parent.verticalCenter
-      horizontalCenter: parent.horizontalCenter
-      horizontalCenterOffset: -(Constants.TAB_SIZE / 6)
+      verticalCenter: root_tabItem.verticalCenter
+      left: root_tabItem.left
+      leftMargin: label.leftOffset
     }
-    opacity: selected ? 1 : 0
+    opacity: root_tabItem.selected ? 1 : 0
     font {
-      pixelSize: Constants.TAB_ICO_SIZE * 0.4
+      pixelSize: label.fontSize
       bold: true
     }
 

@@ -10,11 +10,13 @@ INCLUDEPATH += \
 
 SOURCES += \
         src/AppEngine.cpp \
+        src/controller/WarpCliController.cpp \
         src/main.cpp \
         src/common/Constants.cpp \
         src/common/WarpEvents.cpp \
         src/controller/QML_Handler.cpp \
         src/model/AppModel.cpp \
+        src/model/SettingsModel.cpp \
         src/model/TabListModel.cpp
 
 HEADERS += \
@@ -23,14 +25,16 @@ HEADERS += \
     hdr/common/Constants.h \
     hdr/common/WarpEvents.h \
     hdr/controller/QML_Handler.h \
+    hdr/controller/WarpCliController.h \
     hdr/model/AppModel.h \
+    hdr/model/SettingsModel.h \
     hdr/model/TabListModel.h
 
 # Declare QML files
 qml_file.files += \
         qml/main.qml \
         qml/components/common/KSwitchButton.qml \
-        qml/components/common/KSettingItem.qml \
+        qml/components/common/KSwitchSetting.qml \
         qml/components/common/KTabItem.qml \
         qml/components/common/KTabIndexer.qml \
         qml/components/KSystemTray.qml \
@@ -71,4 +75,7 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    qml/components/common/KButton.qml
 
