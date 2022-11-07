@@ -1,6 +1,8 @@
 QT += quick qml
 CONFIG += qmltypes
 
+DEFINES += WARP_DEBUG
+
 INCLUDEPATH += \
         hdr \
         hdr/controller \

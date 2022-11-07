@@ -5,17 +5,13 @@
 #include <QByteArray>
 
 WarpCliController::WarpCliController()
-    : m_process         { new QProcess() }
-    , m_currentWorkID   { DoNothing }
+    : m_currentWorkID   { DoNothing }
 {
     LOG;
 }
 
 void WarpCliController::initConnections()
 {
-//    connect(m_process, &QProcess::readyReadStandardOutput, this, &WarpCliController::onReadyReadStandardOutput);
-//    connect(m_process, &QProcess::readyReadStandardError, this, &WarpCliController::onReadyReadStandardError);
-    //    connect(m_process, &QProcess::finished, this, &WarpCliController::onFinished);
 }
 
 void WarpCliController::printResult(QString prefix, QString data)
@@ -27,42 +23,21 @@ void WarpCliController::printResult(QString prefix, QString data)
     }
 }
 
-void WarpCliController::onReadyReadStandardOutput()
-{
-    QByteArray stdOut = m_process->readAllStandardOutput();
-    LOG << QString(stdOut);
-}
-
-void WarpCliController::onReadyReadStandardError()
-{
-    QByteArray stdErr = m_process->readAllStandardOutput();
-    LOG << QString(stdErr);
-}
-
-void WarpCliController::onFinished(int exitCode, QProcess::ExitStatus exitStatus)
-{
-    LOG << "Code:" << exitCode << "| ExitStatus:" << exitStatus << "| WorkID:" << m_currentWorkID;
-
-    m_currentWorkID = DoNothing;
-}
-
-WarpCliController &WarpCliController::instance()
-{
-    static WarpCliController self;
-    return self;
-}
-
 WarpCliController::~WarpCliController()
 {
     LOG;
-    safeDelete<QProcess>(m_process);
 }
 
 void WarpCliController::startWarpService()
 {
     LOG;
+#ifdef WARP_DEBUG
+    QString command = "echo \"systemctl start warp-svc.service\"";
+#else
     QString command = "/usr/bin/bash -c \"systemctl start warp-svc.service\"";
+#endif
     AppModel::instance().setWarpSvcStarting(true);
+    QThread::sleep(5);
     QProcess process;
     process.startCommand(command, QProcess::ReadOnly);
     process.waitForFinished();
@@ -84,8 +59,13 @@ void WarpCliController::startWarpService()
 void WarpCliController::stopWarpService()
 {
     LOG;
+#ifdef WARP_DEBUG
+    QString command = "echo \"systemctl stop warp-svc.service\"";
+#else
     QString command = "/usr/bin/bash -c \"systemctl stop warp-svc.service\"";
+#endif
     AppModel::instance().setWarpSvcStarting(true);
+    QThread::sleep(5);
     QProcess process;
     process.startCommand(command, QProcess::ReadOnly);
     process.waitForFinished();

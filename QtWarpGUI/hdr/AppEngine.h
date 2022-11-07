@@ -7,6 +7,8 @@
 #include <QTimer>
 #include "TabListModel.h"
 #include "WarpEvents.h"
+#include "WarpCliController.h"
+#include <QThread>
 
 class AppEngine : public QQmlApplicationEngine
 {
@@ -24,7 +26,6 @@ private:
     void initEnvironment();
     void initQmlContexts();
     void initConnections();
-    void startExecuteTimer(WarpEvents::RequestEvent event);
 
 private slots:
     void onNotifyRequestEvent(WarpEvents::RequestEvent event);
@@ -32,6 +33,12 @@ private slots:
 private:
     QGuiApplication *m_app;
     TabListModel *m_tabListModel;
+    WarpCliController *m_warpController;
+    QThread *m_warpWorker;
+
+signals:
+    void reqWarpCliStartService();
+    void reqWarpCliStopService();
 };
 
 #endif // APPENGINE_H

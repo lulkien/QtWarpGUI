@@ -20,7 +20,6 @@ Rectangle {
         buttonReady: !AppModel.warpSvcStarting
         onSwitched: {
           QML_Handler.qmlDebug("Start warp-svc.service clicked")
-          AppModel.warpSvcStarting = true
           AppModel.tmpWarpSvcStarted = !AppModel.tmpWarpSvcStarted
           QML_Handler.qmlSendRequestEvent(
                 AppModel.tmpWarpSvcStarted ? WarpEvents.EVT_REQ_START_WARP_SERVICE : WarpEvents.EVT_REQ_STOP_WARP_SERVICE)

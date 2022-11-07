@@ -3,9 +3,11 @@
 
 #include <QDebug>
 #include <QString>
+#include <QThread>
 
 #define QML_LOG qDebug().noquote() << "[QmlMessage] "
-#define LOG     qDebug().noquote() << "[" << __FUNCTION__ << "][" << __LINE__ << "] "
+#define LOG     qDebug().noquote() << "[" << QThread::currentThreadId() << "][" << __FUNCTION__ << "][" << __LINE__ << "] "
+//#define LOG     qDebug().noquote() << QString("[0x%1][%2][%3]").arg((int)QThread::currentThreadId()).arg(__FUNCTION__).arg(__LINE__)
 
 // custom import qml
 #define QML_IMPORT          "com.warp.custom"

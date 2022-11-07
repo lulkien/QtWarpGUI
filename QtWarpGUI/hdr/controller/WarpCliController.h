@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QProcess>
 #include <QString>
+#include <QThread>
 
 class WarpCliController : public QObject
 {
@@ -19,24 +20,20 @@ public:
         DisableWarpService,
     };
 
-    static WarpCliController &instance();
+    WarpCliController();
     virtual ~WarpCliController();
 
+public slots:
     void startWarpService();
     void stopWarpService();
 
 private:
-    WarpCliController();
     void initConnections();
     void printResult(QString prefix, QString data);
 
 private slots:
-    void onReadyReadStandardOutput();
-    void onReadyReadStandardError();
-    void onFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
-    QProcess *m_process;
     WorkID m_currentWorkID;
 
 signals:

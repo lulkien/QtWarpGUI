@@ -58,6 +58,7 @@ Rectangle {
 
   MouseArea {
     enabled: root_switch.buttonReady
+    visible: root_switch.buttonReady
     anchors.fill: parent
     onClicked: {
       root_switch.clicked()
