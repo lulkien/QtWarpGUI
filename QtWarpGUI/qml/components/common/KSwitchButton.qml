@@ -6,8 +6,9 @@ Rectangle {
 
   // custom properties
   property int switchSize: 100
-  property string enableColor: Constants.ORANGE_CLOUDFLARE_L
-  property string disableColor: Constants.LIGHT_GRAY
+  property color enableColor: Constants.ORANGE_CLOUDFLARE_L
+  property color disableColor: Constants.LIGHT_GRAY
+  property color processingColor: Constants.KINDA_RED
   property string borderColor: Constants.DARK_GRAY
   property bool isEnabled: false
   property bool buttonReady: true
@@ -27,7 +28,7 @@ Rectangle {
   // signal declare
   signal clicked
 
-  color: isEnabled ? enableColor : disableColor
+  color: !buttonReady ? processingColor : (isEnabled ? enableColor : disableColor)
 
   Rectangle {
     id: switch_core

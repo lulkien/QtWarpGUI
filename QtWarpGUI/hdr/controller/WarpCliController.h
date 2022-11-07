@@ -24,8 +24,12 @@ public:
     virtual ~WarpCliController();
 
 public slots:
+    void enableWarp();
+    void disableWarp();
     void startWarpService();
     void stopWarpService();
+    void enableWarpService();
+    void disableWarpService();
 
 private:
     void initConnections();

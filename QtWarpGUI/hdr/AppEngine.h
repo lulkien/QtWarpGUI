@@ -39,6 +39,8 @@ private:
 signals:
     void reqWarpCliStartService();
     void reqWarpCliStopService();
+    void reqWarpCliEnableService();
+    void reqWarpCliDisableService();
 };
 
 #endif // APPENGINE_H

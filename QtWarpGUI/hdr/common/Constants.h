@@ -60,6 +60,7 @@ private:
     DEFINES(QColor, ORANGE_CLOUDFLARE_D,    "#F38020")
     DEFINES(QColor, ORANGE_CLOUDFLARE_L,    "#FAAE40")
     DEFINES(QColor, ALMOST_WHITE,           "#FAFAFA")
+    DEFINES(QColor, KINDA_RED,              "#FF6161")
     DEFINES(QColor, INVISIBLE,              "transparent")
 
     // QML Url

@@ -20,20 +20,18 @@ AppModel::~AppModel()
 
 AppModel::AppModel()
     : m_currentTab          { 2 }
+    , m_warpEnabled         { false }
     , m_tmpWarpEnabled      { false }
     , m_warpEnabling        { false }
+    , m_warpSvcStarted      { false }
     , m_tmpWarpSvcStarted   { false }
     , m_warpSvcStarting     { false }
+    , m_warpSvcEnabled      { false }
     , m_tmpWarpSvcEnabled   { false }
     , m_warpSvcEnabling     { false }
 {
     LOG;
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
-}
-
-int AppModel::currentTab() const
-{
-    return m_currentTab;
 }
 
 void AppModel::setCurrentTab(int newCurrentTab)
@@ -44,10 +42,10 @@ void AppModel::setCurrentTab(int newCurrentTab)
     emit currentTabChanged();
 }
 
-
-bool AppModel::tmpWarpEnabled() const
+void AppModel::setWarpEnabled(bool newWarpEnabled)
 {
-    return m_tmpWarpEnabled;
+    m_warpEnabled = newWarpEnabled;
+    this->setTmpWarpEnabled(m_warpEnabled);
 }
 
 void AppModel::setTmpWarpEnabled(bool newTmpWarpEnabled)
@@ -58,9 +56,18 @@ void AppModel::setTmpWarpEnabled(bool newTmpWarpEnabled)
     emit tmpWarpEnabledChanged();
 }
 
-bool AppModel::tmpWarpSvcStarted() const
+void AppModel::setWarpEnabling(bool newWarpEnabling)
 {
-    return m_tmpWarpSvcStarted;
+    if (m_warpEnabling == newWarpEnabling)
+        return;
+    m_warpEnabling = newWarpEnabling;
+    emit warpEnablingChanged();
+}
+
+void AppModel::setWarpSvcStarted(bool newWarpSvcStarted)
+{
+    m_warpSvcStarted = newWarpSvcStarted;
+    this->setTmpWarpSvcStarted(m_warpSvcStarted);
 }
 
 void AppModel::setTmpWarpSvcStarted(bool newTmpWarpSvcStarted)
@@ -71,37 +78,6 @@ void AppModel::setTmpWarpSvcStarted(bool newTmpWarpSvcStarted)
     emit tmpWarpSvcStartedChanged();
 }
 
-bool AppModel::tmpWarpSvcEnabled() const
-{
-    return m_tmpWarpSvcEnabled;
-}
-
-void AppModel::setTmpWarpSvcEnabled(bool newTmpWarpSvcEnabled)
-{
-    if (m_tmpWarpSvcEnabled == newTmpWarpSvcEnabled)
-        return;
-    m_tmpWarpSvcEnabled = newTmpWarpSvcEnabled;
-    emit tmpWarpSvcEnabledChanged();
-}
-
-bool AppModel::warpEnabling() const
-{
-    return m_warpEnabling;
-}
-
-void AppModel::setWarpEnabling(bool newWarpEnabling)
-{
-    if (m_warpEnabling == newWarpEnabling)
-        return;
-    m_warpEnabling = newWarpEnabling;
-    emit warpEnablingChanged();
-}
-
-bool AppModel::warpSvcStarting() const
-{
-    return m_warpSvcStarting;
-}
-
 void AppModel::setWarpSvcStarting(bool newWarpSvcStarting)
 {
     if (m_warpSvcStarting == newWarpSvcStarting)
@@ -110,9 +86,18 @@ void AppModel::setWarpSvcStarting(bool newWarpSvcStarting)
     emit warpSvcStartingChanged();
 }
 
-bool AppModel::warpSvcEnabling() const
+void AppModel::setWarpSvcEnabled(bool newWarpSvcEnabled)
 {
-    return m_warpSvcEnabling;
+    m_warpSvcEnabled = newWarpSvcEnabled;
+    this->setTmpWarpSvcEnabled(m_warpSvcEnabled);
+}
+
+void AppModel::setTmpWarpSvcEnabled(bool newTmpWarpSvcEnabled)
+{
+    if (m_tmpWarpSvcEnabled == newTmpWarpSvcEnabled)
+        return;
+    m_tmpWarpSvcEnabled = newTmpWarpSvcEnabled;
+    emit tmpWarpSvcEnabledChanged();
 }
 
 void AppModel::setWarpSvcEnabling(bool newWarpSvcEnabling)

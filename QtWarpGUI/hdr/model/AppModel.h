@@ -21,25 +21,34 @@ public:
     static AppModel *create(QQmlEngine *, QJSEngine *);
     virtual ~AppModel();
 
-    int currentTab() const;
+    int currentTab() const
+    {
+        return m_currentTab;
+    }
     void setCurrentTab(int newCurrentTab);
 
-    bool tmpWarpEnabled() const;
+    // enable check
+    bool warpEnabled() const       {    return m_warpEnabled;       }
+    bool tmpWarpEnabled() const    {    return m_tmpWarpEnabled;    }
+    bool warpEnabling() const      {   return m_warpEnabling;       }
+    void setWarpEnabled(bool newWarpEnabled);
     void setTmpWarpEnabled(bool newTmpWarpEnabled);
-
-    bool tmpWarpSvcStarted() const;
-    void setTmpWarpSvcStarted(bool newTmpWarpSvcStarted);
-
-    bool tmpWarpSvcEnabled() const;
-    void setTmpWarpSvcEnabled(bool newTmpWarpSvcEnabled);
-
-    bool warpEnabling() const;
     void setWarpEnabling(bool newWarpEnabling);
 
-    bool warpSvcStarting() const;
+    // start service check
+    bool warpSvcStarted() const    {    return m_warpSvcStarted;    }
+    bool tmpWarpSvcStarted() const {    return m_tmpWarpSvcStarted; }
+    bool warpSvcStarting() const   {    return m_warpSvcStarting;   }
+    void setWarpSvcStarted(bool newWarpSvcStarted);
+    void setTmpWarpSvcStarted(bool newTmpWarpSvcStarted);
     void setWarpSvcStarting(bool newWarpSvcStarting);
 
-    bool warpSvcEnabling() const;
+    // enable service check
+    bool warpSvcEnabled() const    {    return m_warpSvcEnabled;    }
+    bool tmpWarpSvcEnabled() const {    return m_tmpWarpSvcEnabled; }
+    bool warpSvcEnabling() const   {    return m_warpSvcEnabling;   }
+    void setWarpSvcEnabled(bool newWarpSvcEnabled);
+    void setTmpWarpSvcEnabled(bool newTmpWarpSvcEnabled);
     void setWarpSvcEnabling(bool newWarpSvcEnabling);
 
 private:
@@ -49,12 +58,15 @@ private:
     static AppModel self;
     int m_currentTab;
 
+    bool m_warpEnabled;
     bool m_tmpWarpEnabled;
     bool m_warpEnabling;
 
+    bool m_warpSvcStarted;
     bool m_tmpWarpSvcStarted;
     bool m_warpSvcStarting;
 
+    bool m_warpSvcEnabled;
     bool m_tmpWarpSvcEnabled;
     bool m_warpSvcEnabling;
 

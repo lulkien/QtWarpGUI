@@ -29,6 +29,14 @@ Rectangle {
         id: setting_2
         label: "Enable warp-svc.service"
         guideText: "Autostart warp-svc.service on booting"
+        isEnabled: AppModel.tmpWarpSvcEnabled
+        buttonReady: !AppModel.warpSvcEnabling
+        onSwitched: {
+          QML_Handler.qmlDebug("Start warp-svc.service clicked")
+          AppModel.tmpWarpSvcEnabled = !AppModel.tmpWarpSvcEnabled
+          QML_Handler.qmlSendRequestEvent(
+                AppModel.tmpWarpSvcEnabled ? WarpEvents.EVT_REQ_ENABLE_WARP_SERVICE : WarpEvents.EVT_REQ_DISABLE_WARP_SERVICE)
+        }
       }
     }
   }

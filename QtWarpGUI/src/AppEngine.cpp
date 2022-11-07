@@ -77,6 +77,8 @@ void AppEngine::initConnections()
     connect(m_warpWorker, &QThread::finished, m_warpWorker, &QObject::deleteLater);
     connect(this, &AppEngine::reqWarpCliStartService, m_warpController, &WarpCliController::startWarpService, Qt::QueuedConnection);
     connect(this, &AppEngine::reqWarpCliStopService, m_warpController, &WarpCliController::stopWarpService, Qt::QueuedConnection);
+    connect(this, &AppEngine::reqWarpCliEnableService, m_warpController, &WarpCliController::enableWarpService, Qt::QueuedConnection);
+    connect(this, &AppEngine::reqWarpCliDisableService, m_warpController, &WarpCliController::disableWarpService, Qt::QueuedConnection);
 }
 
 void AppEngine::onNotifyRequestEvent(WarpEvents::RequestEvent event)
@@ -89,7 +91,10 @@ void AppEngine::onNotifyRequestEvent(WarpEvents::RequestEvent event)
         emit reqWarpCliStopService();
         break;
     case WarpEvents::EVT_REQ_ENABLE_WARP_SERVICE:
-    case WarpEvents::EVT_REQ_DISABLEW_WARP_SERVICE:
+        emit reqWarpCliEnableService();
+        break;
+    case WarpEvents::EVT_REQ_DISABLE_WARP_SERVICE:
+        emit reqWarpCliDisableService();
         break;
     default:
         break;
