@@ -5,7 +5,7 @@
 TabListModel::TabListModel()
 {
     LOG;
-    initialize();
+    initializeTabList();
 }
 
 TabListModel::~TabListModel()
@@ -50,14 +50,14 @@ QHash<int, QByteArray> TabListModel::roleNames() const
     return table;
 }
 
-void TabListModel::initialize()
+void TabListModel::initializeTabList()
 {
     LOG;
     beginResetModel();
     this->mTabList.clear();
-    this->mTabList.append(new TabInfo("Home", Constants::instance().HOME_ICO()));
-    this->mTabList.append(new TabInfo("User", Constants::instance().USER_ICO()));
-    this->mTabList.append(new TabInfo("Setup", Constants::instance().SETUP_ICO()));
-    this->mTabList.append(new TabInfo("Info", Constants::instance().INFO_ICO()));
+    this->mTabList.append(new TabInfo("Home",   Constants::instance().HOME_ICO()));
+    this->mTabList.append(new TabInfo("User",   Constants::instance().USER_ICO()));
+    this->mTabList.append(new TabInfo("Setup",  Constants::instance().SETUP_ICO()));
+    this->mTabList.append(new TabInfo("Info",   Constants::instance().INFO_ICO()));
     endResetModel();
 }

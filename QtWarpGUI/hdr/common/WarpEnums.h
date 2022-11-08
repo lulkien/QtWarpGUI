@@ -1,15 +1,15 @@
-#ifndef WARPEVENTS_H
-#define WARPEVENTS_H
+#ifndef WARPENUMS_H
+#define WARPENUMS_H
 
 #include <QMetaType>
 #include <QObject>
 #include <QQmlEngine>
 
-class WarpEvents : public QObject
+class WarpEnums : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
-    QML_UNCREATABLE("Cannot create object from WarpEvents")
+    QML_UNCREATABLE("Cannot create object from WarpEnums")
 public:
     // enums declare
     enum GUIEvents {
@@ -45,9 +45,17 @@ public:
     };
     Q_ENUM(RequestEvent)
 
+    enum Tab {
+        HOME = 0,
+        USER,
+        SETUP,
+        INFO,
+    };
+    Q_ENUM(Tab)
+
 public:
-    WarpEvents();
-    virtual ~WarpEvents();
+    WarpEnums();
+    virtual ~WarpEnums();
 };
 
-#endif // WARPEVENTS_H
+#endif // WARPENUMS_H

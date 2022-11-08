@@ -20,34 +20,26 @@ public:
     static AppModel &instance();
     static AppModel *create(QQmlEngine *, QJSEngine *);
     virtual ~AppModel();
+    void init();
 
-    int currentTab() const
-    {
-        return m_currentTab;
-    }
+    int currentTab() const          {   return m_currentTab;        }
     void setCurrentTab(int newCurrentTab);
 
     // enable check
-    bool warpEnabled() const       {    return m_warpEnabled;       }
-    bool tmpWarpEnabled() const    {    return m_tmpWarpEnabled;    }
-    bool warpEnabling() const      {   return m_warpEnabling;       }
-    void setWarpEnabled(bool newWarpEnabled);
+    bool tmpWarpEnabled() const     {   return m_tmpWarpEnabled;    }
+    bool warpEnabling() const       {   return m_warpEnabling;      }
     void setTmpWarpEnabled(bool newTmpWarpEnabled);
     void setWarpEnabling(bool newWarpEnabling);
 
     // start service check
-    bool warpSvcStarted() const    {    return m_warpSvcStarted;    }
-    bool tmpWarpSvcStarted() const {    return m_tmpWarpSvcStarted; }
-    bool warpSvcStarting() const   {    return m_warpSvcStarting;   }
-    void setWarpSvcStarted(bool newWarpSvcStarted);
+    bool tmpWarpSvcStarted() const  {   return m_tmpWarpSvcStarted; }
+    bool warpSvcStarting() const    {   return m_warpSvcStarting;   }
     void setTmpWarpSvcStarted(bool newTmpWarpSvcStarted);
     void setWarpSvcStarting(bool newWarpSvcStarting);
 
     // enable service check
-    bool warpSvcEnabled() const    {    return m_warpSvcEnabled;    }
-    bool tmpWarpSvcEnabled() const {    return m_tmpWarpSvcEnabled; }
-    bool warpSvcEnabling() const   {    return m_warpSvcEnabling;   }
-    void setWarpSvcEnabled(bool newWarpSvcEnabled);
+    bool tmpWarpSvcEnabled() const  {   return m_tmpWarpSvcEnabled; }
+    bool warpSvcEnabling() const    {   return m_warpSvcEnabling;   }
     void setTmpWarpSvcEnabled(bool newTmpWarpSvcEnabled);
     void setWarpSvcEnabling(bool newWarpSvcEnabling);
 
@@ -58,15 +50,12 @@ private:
     static AppModel self;
     int m_currentTab;
 
-    bool m_warpEnabled;
     bool m_tmpWarpEnabled;
     bool m_warpEnabling;
 
-    bool m_warpSvcStarted;
     bool m_tmpWarpSvcStarted;
     bool m_warpSvcStarting;
 
-    bool m_warpSvcEnabled;
     bool m_tmpWarpSvcEnabled;
     bool m_warpSvcEnabling;
 

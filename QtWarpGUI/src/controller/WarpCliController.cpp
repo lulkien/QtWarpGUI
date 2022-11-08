@@ -1,19 +1,15 @@
 #include "WarpCliController.h"
 #include "Common.h"
 #include "AppModel.h"
+#include "SettingsModel.h"
 #include <QStringList>
 #include <QByteArray>
 
 #define PROCESSING_DUMMY_TIME 1
 
 WarpCliController::WarpCliController()
-    : m_currentWorkID   { DoNothing }
 {
     LOG;
-}
-
-void WarpCliController::initConnections()
-{
 }
 
 void WarpCliController::printResult(QString prefix, QString data)
@@ -30,6 +26,39 @@ WarpCliController::~WarpCliController()
     LOG;
 }
 
+void WarpCliController::initSystemSettings()
+{
+    LOG;
+    QProcess process;
+    QString _cmd;
+    QString _stdout;
+
+    // check service enabled
+    _cmd = "systemctl is-enabled warp-svc.service";
+    process.startCommand(_cmd, QProcess::ReadOnly);
+    if (!process.waitForFinished(1000))
+    {
+        LOG << "FAIL TO CHECK SERVICE ENABLED... ABORT!";
+        abort();
+    }
+    _stdout = QString(process.readAllStandardOutput()).trimmed();
+    SettingsModel::instance().setWarpServiceEnabled(QString("enabled") == _stdout);
+    LOG << _cmd << "---->" << _stdout;
+
+    // check service active
+    _cmd = "systemctl is-active warp-svc.service";
+    process.startCommand(_cmd, QProcess::ReadOnly);
+    if (!process.waitForFinished(1000))
+    {
+        LOG << "FAIL TO CHECK SERVICE ACTIVE... ABORT!";
+        abort();
+    }
+    _stdout = QString(process.readAllStandardOutput()).trimmed();
+    SettingsModel::instance().setWarpServiceStarted(QString("active") == _stdout);
+    LOG << _cmd << "---->" << _stdout;
+    return;
+}
+
 void WarpCliController::enableWarp()
 {
     LOG;
@@ -44,7 +73,7 @@ void WarpCliController::enableWarp()
     process.startCommand(command, QProcess::ReadOnly);
     process.waitForFinished();
     printResult("stdout:", QString(process.readAllStandardOutput()));
-    printResult("StrErr:", QString(process.readAllStandardError()));
+    printResult("stderr:", QString(process.readAllStandardError()));
     if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
     {
         LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
@@ -52,7 +81,7 @@ void WarpCliController::enableWarp()
     }
     else
     {
-        AppModel::instance().setWarpEnabled(true);
+        SettingsModel::instance().setWarpEnabled(true);
         LOG << "Success";
     }
     AppModel::instance().setWarpEnabling(false);
@@ -73,7 +102,7 @@ void WarpCliController::disableWarp()
     process.startCommand(command, QProcess::ReadOnly);
     process.waitForFinished();
     printResult("stdout:", QString(process.readAllStandardOutput()));
-    printResult("StrErr:", QString(process.readAllStandardError()));
+    printResult("stderr:", QString(process.readAllStandardError()));
     if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
     {
         LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
@@ -81,7 +110,7 @@ void WarpCliController::disableWarp()
     }
     else
     {
-        AppModel::instance().setWarpEnabled(false);
+        SettingsModel::instance().setWarpEnabled(false);
         LOG << "Success";
     }
     AppModel::instance().setWarpEnabling(false);
@@ -96,13 +125,13 @@ void WarpCliController::startWarpService()
     QString command = "echo \"systemctl start warp-svc.service\"";
     QThread::sleep(PROCESSING_DUMMY_TIME);
 #else
-    QString command = "/usr/bin/bash -c \"systemctl start warp-svc.service\"";
+    QString command = "systemctl start warp-svc.service";
 #endif
     QProcess process;
     process.startCommand(command, QProcess::ReadOnly);
     process.waitForFinished();
     printResult("stdout:", QString(process.readAllStandardOutput()));
-    printResult("StrErr:", QString(process.readAllStandardError()));
+    printResult("stderr:", QString(process.readAllStandardError()));
     if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
     {
         LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
@@ -110,7 +139,7 @@ void WarpCliController::startWarpService()
     }
     else
     {
-        AppModel::instance().setWarpSvcStarted(true);
+        SettingsModel::instance().setWarpServiceStarted(true);
         LOG << "Success";
     }
     AppModel::instance().setWarpSvcStarting(false);
@@ -125,7 +154,7 @@ void WarpCliController::stopWarpService()
     QString command = "echo \"systemctl stop warp-svc.service\"";
     QThread::sleep(PROCESSING_DUMMY_TIME);
 #else
-    QString command = "/usr/bin/bash -c \"systemctl stop warp-svc.service\"";
+    QString command = "systemctl stop warp-svc.service";
 #endif
     QProcess process;
     process.startCommand(command, QProcess::ReadOnly);
@@ -138,7 +167,7 @@ void WarpCliController::stopWarpService()
     }
     else
     {
-        AppModel::instance().setWarpSvcStarted(false);
+        SettingsModel::instance().setWarpServiceStarted(false);
         LOG << "Success";
     }
     AppModel::instance().setWarpSvcStarting(false);
@@ -153,7 +182,7 @@ void WarpCliController::enableWarpService()
     QString command = "echo \"systemctl enable warp-svc.service\"";
     QThread::sleep(PROCESSING_DUMMY_TIME);
 #else
-    QString command = "/usr/bin/bash -c \"systemctl enable warp-svc.service\"";
+    QString command = "systemctl enable warp-svc.service";
 #endif
     QProcess process;
     process.startCommand(command, QProcess::ReadOnly);
@@ -166,7 +195,7 @@ void WarpCliController::enableWarpService()
     }
     else
     {
-        AppModel::instance().setWarpSvcEnabled(true);
+        SettingsModel::instance().setWarpServiceEnabled(true);
         LOG << "Success";
     }
     AppModel::instance().setWarpSvcEnabling(false);
@@ -181,7 +210,7 @@ void WarpCliController::disableWarpService()
     QString command = "echo \"systemctl disable warp-svc.service\"";
     QThread::sleep(PROCESSING_DUMMY_TIME);
 #else
-    QString command = "/usr/bin/bash -c \"systemctl disable warp-svc.service\"";
+    QString command = "systemctl disable warp-svc.service";
 #endif
     QProcess process;
     process.startCommand(command, QProcess::ReadOnly);
@@ -194,7 +223,7 @@ void WarpCliController::disableWarpService()
     }
     else
     {
-        AppModel::instance().setWarpSvcEnabled(false);
+        SettingsModel::instance().setWarpServiceEnabled(false);
         LOG << "Success";
     }
     AppModel::instance().setWarpSvcEnabling(false);

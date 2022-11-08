@@ -42,17 +42,17 @@ Window {
   // Function declare
   function handleSystrayVisible(state) {
     QML_Handler.qmlSendGUIEvent(
-          state === true ? WarpEvents.EVT_GUI_SHOW_SYSTRAY : WarpEvents.EVT_GUI_HIDE_SYSTRAY)
+          state === true ? WarpEnums.EVT_GUI_SHOW_SYSTRAY : WarpEnums.EVT_GUI_HIDE_SYSTRAY)
     notifySystrayVisibleChanged(state)
   }
 
   function hideWindow() {
-    QML_Handler.qmlSendGUIEvent(WarpEvents.EVT_GUI_HIDE_WINDOW)
+    QML_Handler.qmlSendGUIEvent(WarpEnums.EVT_GUI_HIDE_WINDOW)
     root_window.hide()
   }
 
   function showWindow() {
-    QML_Handler.qmlSendGUIEvent(WarpEvents.EVT_GUI_SHOW_WINDOW)
+    QML_Handler.qmlSendGUIEvent(WarpEnums.EVT_GUI_SHOW_WINDOW)
     root_window.show()
   }
 }

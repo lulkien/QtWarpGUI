@@ -44,6 +44,7 @@ bool AppEngine::initApplication()
         initEnvironment();
         initQmlContexts();
         initConnections();
+        initSettings();
         return false;
     }
     else
@@ -73,27 +74,37 @@ void AppEngine::initQmlContexts()
 void AppEngine::initConnections()
 {
     LOG;
-    connect(&QML_Handler::instance(), &QML_Handler::notifyRequestEvent, this, &AppEngine::onNotifyRequestEvent);
     connect(m_warpWorker, &QThread::finished, m_warpWorker, &QObject::deleteLater);
-    connect(this, &AppEngine::reqWarpCliStartService, m_warpController, &WarpCliController::startWarpService, Qt::QueuedConnection);
-    connect(this, &AppEngine::reqWarpCliStopService, m_warpController, &WarpCliController::stopWarpService, Qt::QueuedConnection);
-    connect(this, &AppEngine::reqWarpCliEnableService, m_warpController, &WarpCliController::enableWarpService, Qt::QueuedConnection);
-    connect(this, &AppEngine::reqWarpCliDisableService, m_warpController, &WarpCliController::disableWarpService, Qt::QueuedConnection);
+    connect(&QML_Handler::instance(), &QML_Handler::notifyRequestEvent,
+            this, &AppEngine::onNotifyRequestEvent);
+    connect(this, &AppEngine::reqWarpCliStartService,
+            m_warpController, &WarpCliController::startWarpService, Qt::QueuedConnection);
+    connect(this, &AppEngine::reqWarpCliStopService,
+            m_warpController, &WarpCliController::stopWarpService, Qt::QueuedConnection);
+    connect(this, &AppEngine::reqWarpCliEnableService,
+            m_warpController, &WarpCliController::enableWarpService, Qt::QueuedConnection);
+    connect(this, &AppEngine::reqWarpCliDisableService,
+            m_warpController, &WarpCliController::disableWarpService, Qt::QueuedConnection);
 }
 
-void AppEngine::onNotifyRequestEvent(WarpEvents::RequestEvent event)
+void AppEngine::initSettings()
+{
+    m_warpController->initSystemSettings(); // this function must be called in main thread
+}
+
+void AppEngine::onNotifyRequestEvent(WarpEnums::RequestEvent event)
 {
     switch (event) {
-    case WarpEvents::EVT_REQ_START_WARP_SERVICE:
+    case WarpEnums::EVT_REQ_START_WARP_SERVICE:
         emit reqWarpCliStartService();
         break;
-    case WarpEvents::EVT_REQ_STOP_WARP_SERVICE:
+    case WarpEnums::EVT_REQ_STOP_WARP_SERVICE:
         emit reqWarpCliStopService();
         break;
-    case WarpEvents::EVT_REQ_ENABLE_WARP_SERVICE:
+    case WarpEnums::EVT_REQ_ENABLE_WARP_SERVICE:
         emit reqWarpCliEnableService();
         break;
-    case WarpEvents::EVT_REQ_DISABLE_WARP_SERVICE:
+    case WarpEnums::EVT_REQ_DISABLE_WARP_SERVICE:
         emit reqWarpCliDisableService();
         break;
     default:

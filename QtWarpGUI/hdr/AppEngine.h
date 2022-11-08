@@ -6,7 +6,7 @@
 #include <QGuiApplication>
 #include <QTimer>
 #include "TabListModel.h"
-#include "WarpEvents.h"
+#include "WarpEnums.h"
 #include "WarpCliController.h"
 #include <QThread>
 
@@ -26,9 +26,10 @@ private:
     void initEnvironment();
     void initQmlContexts();
     void initConnections();
+    void initSettings();
 
 private slots:
-    void onNotifyRequestEvent(WarpEvents::RequestEvent event);
+    void onNotifyRequestEvent(WarpEnums::RequestEvent event);
 
 private:
     QGuiApplication *m_app;

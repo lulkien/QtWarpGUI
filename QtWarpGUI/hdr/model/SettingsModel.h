@@ -10,7 +10,13 @@ public:
     static SettingsModel &instance();
 
     bool warpEnabled() const;
-    void setWarpEnabled(bool status);
+    void setWarpEnabled(bool newWarpEnabled);
+
+    bool warpServiceStarted() const;
+    void setWarpServiceStarted(bool newWarpServiceStarted);
+
+    bool warpServiceEnabled() const;
+    void setWarpServiceEnabled(bool newWarpServiceEnabled);
 
 private:
     SettingsModel();

@@ -1,5 +1,6 @@
 #include "AppModel.h"
 #include "Common.h"
+#include "WarpEnums.h"
 
 AppModel AppModel::self;
 
@@ -18,15 +19,17 @@ AppModel::~AppModel()
     LOG;
 }
 
+void AppModel::init()
+{
+    LOG << "Do init AppModel";
+}
+
 AppModel::AppModel()
-    : m_currentTab          { 2 }
-    , m_warpEnabled         { false }
+    : m_currentTab          { static_cast<int>(WarpEnums::SETUP) }
     , m_tmpWarpEnabled      { false }
     , m_warpEnabling        { false }
-    , m_warpSvcStarted      { false }
     , m_tmpWarpSvcStarted   { false }
     , m_warpSvcStarting     { false }
-    , m_warpSvcEnabled      { false }
     , m_tmpWarpSvcEnabled   { false }
     , m_warpSvcEnabling     { false }
 {
@@ -40,12 +43,6 @@ void AppModel::setCurrentTab(int newCurrentTab)
         return;
     m_currentTab = newCurrentTab;
     emit currentTabChanged();
-}
-
-void AppModel::setWarpEnabled(bool newWarpEnabled)
-{
-    m_warpEnabled = newWarpEnabled;
-    this->setTmpWarpEnabled(m_warpEnabled);
 }
 
 void AppModel::setTmpWarpEnabled(bool newTmpWarpEnabled)
@@ -64,12 +61,6 @@ void AppModel::setWarpEnabling(bool newWarpEnabling)
     emit warpEnablingChanged();
 }
 
-void AppModel::setWarpSvcStarted(bool newWarpSvcStarted)
-{
-    m_warpSvcStarted = newWarpSvcStarted;
-    this->setTmpWarpSvcStarted(m_warpSvcStarted);
-}
-
 void AppModel::setTmpWarpSvcStarted(bool newTmpWarpSvcStarted)
 {
     if (m_tmpWarpSvcStarted == newTmpWarpSvcStarted)
@@ -84,12 +75,6 @@ void AppModel::setWarpSvcStarting(bool newWarpSvcStarting)
         return;
     m_warpSvcStarting = newWarpSvcStarting;
     emit warpSvcStartingChanged();
-}
-
-void AppModel::setWarpSvcEnabled(bool newWarpSvcEnabled)
-{
-    m_warpSvcEnabled = newWarpSvcEnabled;
-    this->setTmpWarpSvcEnabled(m_warpSvcEnabled);
 }
 
 void AppModel::setTmpWarpSvcEnabled(bool newTmpWarpSvcEnabled)

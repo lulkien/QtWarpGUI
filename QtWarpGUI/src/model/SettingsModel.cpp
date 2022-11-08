@@ -1,4 +1,5 @@
 #include "SettingsModel.h"
+#include "AppModel.h"
 
 SettingsModel &SettingsModel::instance()
 {
@@ -11,9 +12,32 @@ bool SettingsModel::warpEnabled() const
     return m_warpEnabled;
 }
 
-void SettingsModel::setWarpEnabled(bool status)
+void SettingsModel::setWarpEnabled(bool newWarpEnabled)
 {
-    m_warpEnabled = status;
+    m_warpEnabled = newWarpEnabled;
+    AppModel::instance().setTmpWarpEnabled(m_warpEnabled);
+}
+
+bool SettingsModel::warpServiceStarted() const
+{
+    return m_warpServiceStarted;
+}
+
+void SettingsModel::setWarpServiceStarted(bool newWarpServiceStarted)
+{
+    m_warpServiceStarted = newWarpServiceStarted;
+    AppModel::instance().setTmpWarpSvcStarted(m_warpServiceStarted);
+}
+
+bool SettingsModel::warpServiceEnabled() const
+{
+    return m_warpServiceEnabled;
+}
+
+void SettingsModel::setWarpServiceEnabled(bool newWarpServiceEnabled)
+{
+    m_warpServiceEnabled = newWarpServiceEnabled;
+    AppModel::instance().setTmpWarpSvcEnabled(m_warpServiceEnabled);
 }
 
 SettingsModel::SettingsModel()

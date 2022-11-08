@@ -10,18 +10,10 @@ class WarpCliController : public QObject
 {
     Q_OBJECT
 public:
-    enum WorkID {
-        DoNothing = 0,
-        EnableWarp,
-        DisableWarp,
-        StartWarpService,
-        StopWarpService,
-        EnableWarpService,
-        DisableWarpService,
-    };
-
     WarpCliController();
     virtual ~WarpCliController();
+
+    void initSystemSettings();
 
 public slots:
     void enableWarp();
@@ -31,14 +23,13 @@ public slots:
     void enableWarpService();
     void disableWarpService();
 
+
 private:
-    void initConnections();
     void printResult(QString prefix, QString data);
 
 private slots:
 
 private:
-    WorkID m_currentWorkID;
 
 signals:
 
