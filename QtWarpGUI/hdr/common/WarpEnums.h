@@ -34,12 +34,9 @@ public:
     enum RequestEvent {
         EVT_REQ_NONE = EVT_GUI_MAX + 1,
 
-        EVT_REQ_WARP_ENABLE,
-        EVT_REQ_WARP_DISABLE,
-        EVT_REQ_START_WARP_SERVICE,
-        EVT_REQ_STOP_WARP_SERVICE,
+        EVT_REQ_WARP_CONNECT,
+        EVT_REQ_ACTIVE_WARP_SERVICE,
         EVT_REQ_ENABLE_WARP_SERVICE,
-        EVT_REQ_DISABLE_WARP_SERVICE,
 
         EVT_REQ_MAX = 128,
     };

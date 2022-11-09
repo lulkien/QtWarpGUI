@@ -63,7 +63,6 @@ Item {
         onTabClicked: {
           if (index !== AppModel.currentTab) {
             AppModel.currentTab = index
-            QML_Handler.qmlDebug("Tab selected: " + AppModel.currentTab)
           }
         }
       }

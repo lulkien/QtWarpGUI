@@ -16,10 +16,10 @@ public:
     void initSystemSettings();
 
 public slots:
-    void enableWarp();
-    void disableWarp();
-    void startWarpService();
-    void stopWarpService();
+    void warpConnect();
+    void warpDisconnect();
+    void activeWarpService();
+    void inactiveWarpService();
     void enableWarpService();
     void disableWarpService();
 

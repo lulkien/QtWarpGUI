@@ -7,43 +7,43 @@ SettingsModel &SettingsModel::instance()
     return self;
 }
 
-bool SettingsModel::warpEnabled() const
+bool SettingsModel::warpConnected() const
 {
-    return m_warpEnabled;
+    return m_warpConnected;
 }
 
-void SettingsModel::setWarpEnabled(bool newWarpEnabled)
+void SettingsModel::setWarpConnected(bool newWarpConnected)
 {
-    m_warpEnabled = newWarpEnabled;
-    AppModel::instance().setTmpWarpEnabled(m_warpEnabled);
+    m_warpConnected = newWarpConnected;
+    AppModel::instance().setTempWarpConnected(m_warpConnected);
 }
 
-bool SettingsModel::warpServiceStarted() const
+bool SettingsModel::warpSvcActivated() const
 {
-    return m_warpServiceStarted;
+    return m_warpSvcActivated;
 }
 
-void SettingsModel::setWarpServiceStarted(bool newWarpServiceStarted)
+void SettingsModel::setWarpSvcActivated(bool newWarpSvcActivated)
 {
-    m_warpServiceStarted = newWarpServiceStarted;
-    AppModel::instance().setTmpWarpSvcStarted(m_warpServiceStarted);
+    m_warpSvcActivated = newWarpSvcActivated;
+    AppModel::instance().setTempWarpSvcActivated(m_warpSvcActivated);
 }
 
-bool SettingsModel::warpServiceEnabled() const
+bool SettingsModel::warpSvcEnabled() const
 {
-    return m_warpServiceEnabled;
+    return m_warpSvcEnabled;
 }
 
-void SettingsModel::setWarpServiceEnabled(bool newWarpServiceEnabled)
+void SettingsModel::setWarpSvcEnabled(bool newWarpSvcEnabled)
 {
-    m_warpServiceEnabled = newWarpServiceEnabled;
-    AppModel::instance().setTmpWarpSvcEnabled(m_warpServiceEnabled);
+    m_warpSvcEnabled = newWarpSvcEnabled;
+    AppModel::instance().setTempWarpSvcEnabled(m_warpSvcEnabled);
 }
 
 SettingsModel::SettingsModel()
-    : m_warpEnabled { false }
-    , m_warpServiceStarted { false }
-    , m_warpServiceEnabled { false }
+    : m_warpConnected       { false }
+    , m_warpSvcActivated    { false }
+    , m_warpSvcEnabled      { false }
 {
 
 }

@@ -16,24 +16,24 @@ Rectangle {
       KCommon.KSwitchSetting {
         id: setting_1
         label: "Start warp-svc.service"
-        isEnabled: AppModel.tmpWarpSvcStarted
-        buttonReady: !AppModel.warpSvcStarting
+        isEnabled: AppModel.tempWarpSvcActivated
         onSwitched: {
-          AppModel.tmpWarpSvcStarted = !AppModel.tmpWarpSvcStarted
+          AppModel.tempWarpSvcActivated = !AppModel.tempWarpSvcActivated
           QML_Handler.qmlSendRequestEvent(
-                AppModel.tmpWarpSvcStarted ? WarpEnums.EVT_REQ_START_WARP_SERVICE : WarpEnums.EVT_REQ_STOP_WARP_SERVICE)
+                WarpEnums.EVT_REQ_ACTIVE_WARP_SERVICE,
+                AppModel.tempWarpSvcActivated)
         }
       }
       KCommon.KSwitchSetting {
         id: setting_2
         label: "Enable warp-svc.service"
         guideText: "Autostart warp-svc.service on booting"
-        isEnabled: AppModel.tmpWarpSvcEnabled
-        buttonReady: !AppModel.warpSvcEnabling
+        isEnabled: AppModel.tempWarpSvcEnabled
         onSwitched: {
-          AppModel.tmpWarpSvcEnabled = !AppModel.tmpWarpSvcEnabled
+          AppModel.tempWarpSvcEnabled = !AppModel.tempWarpSvcEnabled
           QML_Handler.qmlSendRequestEvent(
-                AppModel.tmpWarpSvcEnabled ? WarpEnums.EVT_REQ_ENABLE_WARP_SERVICE : WarpEnums.EVT_REQ_DISABLE_WARP_SERVICE)
+                WarpEnums.EVT_REQ_ENABLE_WARP_SERVICE,
+                AppModel.tempWarpSvcEnabled)
         }
       }
     }

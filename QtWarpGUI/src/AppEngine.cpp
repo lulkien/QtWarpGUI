@@ -15,6 +15,7 @@ AppEngine::~AppEngine()
 {
     LOG;
     safeDelete<TabListModel>(m_tabListModel);
+    safeDelete<WarpCliController>(m_warpController);
 }
 
 void AppEngine::startApplication()
@@ -77,13 +78,13 @@ void AppEngine::initConnections()
     connect(m_warpWorker, &QThread::finished, m_warpWorker, &QObject::deleteLater);
     connect(&QML_Handler::instance(), &QML_Handler::notifyRequestEvent,
             this, &AppEngine::onNotifyRequestEvent);
-    connect(this, &AppEngine::reqWarpCliStartService,
-            m_warpController, &WarpCliController::startWarpService, Qt::QueuedConnection);
-    connect(this, &AppEngine::reqWarpCliStopService,
-            m_warpController, &WarpCliController::stopWarpService, Qt::QueuedConnection);
-    connect(this, &AppEngine::reqWarpCliEnableService,
+    connect(this, &AppEngine::reqActiveWarpService,
+            m_warpController, &WarpCliController::activeWarpService, Qt::QueuedConnection);
+    connect(this, &AppEngine::reqInactiveWarpService,
+            m_warpController, &WarpCliController::inactiveWarpService, Qt::QueuedConnection);
+    connect(this, &AppEngine::reqEnableWarpService,
             m_warpController, &WarpCliController::enableWarpService, Qt::QueuedConnection);
-    connect(this, &AppEngine::reqWarpCliDisableService,
+    connect(this, &AppEngine::reqDisableWarpService,
             m_warpController, &WarpCliController::disableWarpService, Qt::QueuedConnection);
 }
 
@@ -92,22 +93,47 @@ void AppEngine::initSettings()
     m_warpController->initSystemSettings(); // this function must be called in main thread
 }
 
-void AppEngine::onNotifyRequestEvent(WarpEnums::RequestEvent event)
+void AppEngine::handleRequestWarpConnect(bool isReqConnect)
+{
+    LOG << isReqConnect;
+    if (isReqConnect)
+    {
+
+    }
+}
+
+void AppEngine::handleRequestActiveService(bool isReqActive)
+{
+    LOG << isReqActive;
+    if (isReqActive)
+        emit reqActiveWarpService();
+    else
+        emit reqInactiveWarpService();
+}
+
+void AppEngine::handleRequestEnableService(bool isReqEnable)
+{
+    LOG << isReqEnable;
+    if (isReqEnable)
+        emit reqEnableWarpService();
+    else
+        emit reqDisableWarpService();
+}
+
+void AppEngine::onNotifyRequestEvent(WarpEnums::RequestEvent event, QVariant data)
 {
     switch (event) {
-    case WarpEnums::EVT_REQ_START_WARP_SERVICE:
-        emit reqWarpCliStartService();
+    case WarpEnums::EVT_REQ_WARP_CONNECT:
+        this->handleRequestWarpConnect(data.toBool());
         break;
-    case WarpEnums::EVT_REQ_STOP_WARP_SERVICE:
-        emit reqWarpCliStopService();
+    case WarpEnums::EVT_REQ_ACTIVE_WARP_SERVICE:
+        this->handleRequestActiveService(data.toBool());
         break;
     case WarpEnums::EVT_REQ_ENABLE_WARP_SERVICE:
-        emit reqWarpCliEnableService();
-        break;
-    case WarpEnums::EVT_REQ_DISABLE_WARP_SERVICE:
-        emit reqWarpCliDisableService();
+        this->handleRequestEnableService(data.toBool());
         break;
     default:
+        LOG << "Default case";
         break;
     }
 }

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include <QVariant>
 #include "WarpEnums.h"
 
 class QML_Handler final : public QObject
@@ -17,14 +18,14 @@ public:
 public slots:
     void qmlDebug(QString msg);
     void qmlSendGUIEvent(WarpEnums::GUIEvents _event);
-    void qmlSendRequestEvent(WarpEnums::RequestEvent _event);
+    void qmlSendRequestEvent(WarpEnums::RequestEvent _event, QVariant data = QVariant());
 
 private:
     static QML_Handler self;
     QML_Handler();
 
 signals:
-    void notifyRequestEvent(WarpEnums::RequestEvent _event);
+    void notifyRequestEvent(WarpEnums::RequestEvent _event, QVariant data);
 
 };
 

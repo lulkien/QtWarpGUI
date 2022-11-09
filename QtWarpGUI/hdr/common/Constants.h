@@ -53,6 +53,7 @@ private:
     DEFINES(QColor, SELECTION_BLUE,         "#408CFA")
     DEFINES(QColor, SAD_BLUE,               "#5C84AA")
     DEFINES(QColor, GRAY,                   "#878787")
+    DEFINES(QColor, MEDIUM_GRAY,            "#888888")
     DEFINES(QColor, PALE_BLUE,              "#9ACFD6")
     DEFINES(QColor, BRIGHT_DAY,             "#C3CD98")
     DEFINES(QColor, MAGENTA,                "#C63997")

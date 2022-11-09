@@ -23,10 +23,10 @@ void QML_Handler::qmlSendGUIEvent(WarpEnums::GUIEvents _event)
     LOG << _event;
 }
 
-void QML_Handler::qmlSendRequestEvent(WarpEnums::RequestEvent _event)
+void QML_Handler::qmlSendRequestEvent(WarpEnums::RequestEvent _event, QVariant data)
 {
-    LOG << _event;
-    emit notifyRequestEvent(_event);
+    LOG << "Event:" << _event << "| Data:" << data;
+    emit notifyRequestEvent(_event, data);
 }
 
 QML_Handler::QML_Handler()

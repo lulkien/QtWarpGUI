@@ -9,22 +9,22 @@ class SettingsModel final
 public:
     static SettingsModel &instance();
 
-    bool warpEnabled() const;
-    void setWarpEnabled(bool newWarpEnabled);
+    bool warpConnected() const;
+    void setWarpConnected(bool newWarpConnected);
 
-    bool warpServiceStarted() const;
-    void setWarpServiceStarted(bool newWarpServiceStarted);
+    bool warpSvcActivated() const;
+    void setWarpSvcActivated(bool newWarpSvcActivated);
 
-    bool warpServiceEnabled() const;
-    void setWarpServiceEnabled(bool newWarpServiceEnabled);
+    bool warpSvcEnabled() const;
+    void setWarpSvcEnabled(bool newWarpSvcEnabled);
 
 private:
     SettingsModel();
 
 private:
-    bool m_warpEnabled;
-    bool m_warpServiceStarted;
-    bool m_warpServiceEnabled;
+    bool m_warpConnected;
+    bool m_warpSvcActivated;
+    bool m_warpSvcEnabled;
 
 };
 

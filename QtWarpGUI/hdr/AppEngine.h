@@ -5,10 +5,11 @@
 #include <QQmlApplicationEngine>
 #include <QGuiApplication>
 #include <QTimer>
-#include "TabListModel.h"
-#include "WarpEnums.h"
-#include "WarpCliController.h"
 #include <QThread>
+#include <QVariant>
+#include "WarpEnums.h"
+#include "TabListModel.h"
+#include "WarpCliController.h"
 
 class AppEngine : public QQmlApplicationEngine
 {
@@ -23,13 +24,19 @@ public:
 public slots:
 
 private:
+    // inits
     void initEnvironment();
     void initQmlContexts();
     void initConnections();
     void initSettings();
 
+    // general
+    void handleRequestWarpConnect(bool isReqConnect);
+    void handleRequestActiveService(bool isReqActive);
+    void handleRequestEnableService(bool isReqEnable);
+
 private slots:
-    void onNotifyRequestEvent(WarpEnums::RequestEvent event);
+    void onNotifyRequestEvent(WarpEnums::RequestEvent event, QVariant data);
 
 private:
     QGuiApplication *m_app;
@@ -38,10 +45,10 @@ private:
     QThread *m_warpWorker;
 
 signals:
-    void reqWarpCliStartService();
-    void reqWarpCliStopService();
-    void reqWarpCliEnableService();
-    void reqWarpCliDisableService();
+    void reqActiveWarpService();
+    void reqInactiveWarpService();
+    void reqEnableWarpService();
+    void reqDisableWarpService();
 };
 
 #endif // APPENGINE_H

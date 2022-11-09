@@ -1,7 +1,7 @@
 QT += quick qml
 CONFIG += qmltypes
 
-#DEFINES += WARP_DEBUG
+DEFINES += WARP_DEBUG
 
 INCLUDEPATH += \
         hdr \
@@ -34,7 +34,7 @@ HEADERS += \
 
 # Declare QML files
 qml_file.files += \
-        qml/main.qml \
+        qml/components/common/KButton.qml \
         qml/components/common/KSwitchButton.qml \
         qml/components/common/KSwitchSetting.qml \
         qml/components/common/KTabItem.qml \
@@ -43,6 +43,7 @@ qml_file.files += \
         qml/components/KTabBar.qml  \
         qml/components/KTabLoader.qml \
         qml/components/KWindow.qml \
+        qml/main.qml \
         qml/screens/tabs/Warp_HomeTab.qml \
         qml/screens/tabs/Warp_InfoTab.qml \
         qml/screens/tabs/Warp_SetupTab.qml \
@@ -78,6 +79,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    qml/components/common/KButton.qml
+DISTFILES +=
 

@@ -8,27 +8,35 @@ Rectangle {
   property int switchSize: 100
   property color enableColor: Constants.ORANGE_CLOUDFLARE_L
   property color disableColor: Constants.LIGHT_GRAY
-  property color processingColor: Constants.KINDA_RED
+  property color buttonProcessingColor: Constants.KINDA_RED
+  property color buttonDisableColor: Constants.MEDIUM_GRAY
   property string borderColor: Constants.DARK_GRAY
   property bool isEnabled: false
   property bool buttonReady: true
 
-  // readonly properties
-  readonly property double sizeRatio: 0.5
-  readonly property double borderRatio: 0.02
-  readonly property int switchDuration: 150
+  // private properties
+  QtObject {
+    id: attributes
+    property bool switched: false
+    readonly property double sizeRatio: 0.5
+    readonly property double borderRatio: 0.02
+    readonly property int switchDuration: 150
+    readonly property bool buttonAllowMouse: (!AppModel.processingRequest
+                                              && root_switch.buttonReady)
+    readonly property bool buttonDisabled: (!buttonAllowMouse && !switched)
+    readonly property bool buttonProcessing: (!buttonAllowMouse && switched)
+  }
 
   width: switchSize
-  height: switchSize * sizeRatio
+  height: switchSize * attributes.sizeRatio
   radius: height / 2
+  color: attributes.buttonDisabled ? buttonDisableColor : (attributes.buttonProcessing ? buttonProcessingColor : (isEnabled ? enableColor : disableColor))
 
-  border.width: switchSize * borderRatio
+  border.width: switchSize * attributes.borderRatio
   border.color: borderColor
 
   // signal declare
   signal clicked
-
-  color: !buttonReady ? processingColor : (isEnabled ? enableColor : disableColor)
 
   Rectangle {
     id: switch_core
@@ -52,17 +60,25 @@ Rectangle {
 
     Behavior on anchors.horizontalCenterOffset {
       NumberAnimation {
-        duration: root_switch.switchDuration
+        duration: attributes.switchDuration
       }
     }
   }
 
   MouseArea {
-    enabled: root_switch.buttonReady
-    visible: root_switch.buttonReady
+    visible: attributes.buttonAllowMouse
+    enabled: visible
     anchors.fill: parent
     onClicked: {
+      attributes.switched = true
       root_switch.clicked()
+    }
+  }
+
+  Connections {
+    target: AppModel
+    function onProcessingRequestCompleted() {
+      attributes.switched = false
     }
   }
 }
