@@ -21,7 +21,7 @@ Rectangle {
     readonly property double sizeRatio: 0.5
     readonly property double borderRatio: 0.02
     readonly property int switchDuration: 150
-    readonly property bool buttonAllowMouse: (!AppModel.processingRequest
+    readonly property bool buttonAllowMouse: (!QML_Model.processingRequest
                                               && root_switch.buttonReady)
     readonly property bool buttonDisabled: (!buttonAllowMouse && !switched)
     readonly property bool buttonProcessing: (!buttonAllowMouse && switched)
@@ -30,7 +30,8 @@ Rectangle {
   width: switchSize
   height: switchSize * attributes.sizeRatio
   radius: height / 2
-  color: attributes.buttonDisabled ? buttonDisableColor : (attributes.buttonProcessing ? buttonProcessingColor : (isEnabled ? enableColor : disableColor))
+  //  color: attributes.buttonDisabled ? buttonDisableColor : (attributes.buttonProcessing ? buttonProcessingColor : (isEnabled ? enableColor : disableColor))
+  color: attributes.buttonProcessing ? buttonProcessingColor : (isEnabled ? enableColor : disableColor)
 
   border.width: switchSize * attributes.borderRatio
   border.color: borderColor
@@ -76,7 +77,7 @@ Rectangle {
   }
 
   Connections {
-    target: AppModel
+    target: QML_Model
     function onProcessingRequestCompleted() {
       attributes.switched = false
     }

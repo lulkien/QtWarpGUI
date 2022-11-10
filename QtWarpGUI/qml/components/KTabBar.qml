@@ -40,7 +40,7 @@ Item {
 
     anchors {
       top: parent.top
-      topMargin: ((AppModel.currentTab + 0.5) * Constants.TAB_SIZE) - (indexer.height / 2)
+      topMargin: ((QML_Model.currentTab + 0.5) * Constants.TAB_SIZE) - (indexer.height / 2)
       horizontalCenter: root_bar.horizontalCenter
     }
 
@@ -59,10 +59,10 @@ Item {
       delegate: KCommon.KTabItem {
         name: Name
         icoSource: Icon
-        selected: AppModel.currentTab === index
+        selected: QML_Model.currentTab === index
         onTabClicked: {
-          if (index !== AppModel.currentTab) {
-            AppModel.currentTab = index
+          if (index !== QML_Model.currentTab && !QML_Model.processingRequest) {
+            QML_Model.currentTab = index
           }
         }
       }

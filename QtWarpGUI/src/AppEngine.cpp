@@ -76,8 +76,14 @@ void AppEngine::initConnections()
 {
     LOG;
     connect(m_warpWorker, &QThread::finished, m_warpWorker, &QObject::deleteLater);
+    // Thread
     connect(&QML_Handler::instance(), &QML_Handler::notifyRequestEvent,
             this, &AppEngine::onNotifyRequestEvent);
+    // Warp-Cli
+    connect(this, &AppEngine::reqWarpConnect,
+            m_warpController, &WarpCliController::warpConnect, Qt::QueuedConnection);
+    connect(this, &AppEngine::reqWarpDisconnect,
+            m_warpController, &WarpCliController::warpDisconnect, Qt::QueuedConnection);
     connect(this, &AppEngine::reqActiveWarpService,
             m_warpController, &WarpCliController::activeWarpService, Qt::QueuedConnection);
     connect(this, &AppEngine::reqInactiveWarpService,
@@ -97,9 +103,9 @@ void AppEngine::handleRequestWarpConnect(bool isReqConnect)
 {
     LOG << isReqConnect;
     if (isReqConnect)
-    {
-
-    }
+        emit reqWarpConnect();
+    else
+        emit reqWarpDisconnect();
 }
 
 void AppEngine::handleRequestActiveService(bool isReqActive)

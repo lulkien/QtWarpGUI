@@ -6,17 +6,35 @@ Item {
   width: Constants.TAB_PAGE_WIDTH
   height: Constants.TAB_PAGE_HEIGHT
 
-  readonly property var qmlTabList: [Constants.HOME_TAB_QML, Constants.USER_TAB_QML, Constants.SETUP_TAB_QML, Constants.INFO_TAB_QML]
-
   Loader {
     id: loader_1
+    visible: QML_Model.currentTab === WarpEnums.HOME
+    enabled: visible
     anchors.fill: parent
-    source: qmlTabList[AppModel.currentTab]
+    source: Constants.HOME_TAB_QML
   }
 
   Loader {
     id: loader_2
+    visible: QML_Model.currentTab === WarpEnums.USER
+    enabled: visible
     anchors.fill: parent
-    source: qmlTabList[AppModel.currentTab]
+    source: Constants.USER_TAB_QML
+  }
+
+  Loader {
+    id: loader_3
+    visible: QML_Model.currentTab === WarpEnums.SETUP
+    enabled: visible
+    anchors.fill: parent
+    source: Constants.SETUP_TAB_QML
+  }
+
+  Loader {
+    id: loader_4
+    visible: QML_Model.currentTab === WarpEnums.INFO
+    enabled: visible
+    anchors.fill: parent
+    source: Constants.INFO_TAB_QML
   }
 }

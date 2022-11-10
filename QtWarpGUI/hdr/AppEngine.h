@@ -45,6 +45,8 @@ private:
     QThread *m_warpWorker;
 
 signals:
+    void reqWarpConnect();
+    void reqWarpDisconnect();
     void reqActiveWarpService();
     void reqInactiveWarpService();
     void reqEnableWarpService();

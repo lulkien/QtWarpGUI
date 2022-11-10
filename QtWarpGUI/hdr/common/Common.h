@@ -7,7 +7,6 @@
 
 #define QML_LOG qDebug().noquote() << "[QmlMessage] "
 #define LOG     qDebug().noquote() << "[" << QThread::currentThreadId() << "][" << __FUNCTION__ << "][" << __LINE__ << "] "
-//#define LOG     qDebug().noquote() << QString("[0x%1][%2][%3]").arg((int)QThread::currentThreadId()).arg(__FUNCTION__).arg(__LINE__)
 
 // custom import qml
 #define QML_IMPORT          "com.warp.custom"
@@ -15,8 +14,25 @@
 #define QML_IMPORT_MINOR    0
 
 // linux
-#define BASH            QString("/usr/bin/bash")
-#define WARP_SERVICE    QString("warp-svc.service")
+
+// command
+#ifdef WARP_DEBUG
+#define CMD_WARP_CONNECT        "echo \"warp-cli connect\""
+#define CMD_WARP_DISCONNECT     "echo \"warp-cli disconnect\""
+#define CMD_WARP_SVC_ACTIVE     "echo \"systemctl start warp-svc.service\""
+#define CMD_WARP_SVC_INACTIVE   "echo \"systemctl stop warp-svc.service\""
+#define CMD_WARP_SVC_ENABLE     "echo \"systemctl enable warp-svc.service\""
+#define CMD_WARP_SVC_DISABLE    "echo \"systemctl disable warp-svc.service\""
+
+#else
+#define CMD_WARP_CONNECT        "warp-cli connect"
+#define CMD_WARP_DISCONNECT     "warp-cli disconnect"
+#define CMD_WARP_SVC_ACTIVE     "systemctl start warp-svc.service"
+#define CMD_WARP_SVC_INACTIVE   "systemctl stop warp-svc.service"
+#define CMD_WARP_SVC_ENABLE     "systemctl enable warp-svc.service"
+#define CMD_WARP_SVC_DISABLE    "systemctl disable warp-svc.service"
+#endif
+
 
 // static functions
 namespace {

@@ -11,10 +11,14 @@ Item {
   property bool isEnabled: false
   property bool buttonReady: true
 
-  // readonly properties
-  readonly property int textWidth: width * 0.75
-  readonly property int textMargin: width * 0.13
-  readonly property int fontSize: height * 0.26
+  // private properties
+  QtObject {
+    id: attributes
+    readonly property int textWidth: root_settingItem.width * 0.75
+    readonly property int textMargin: root_settingItem.width * 0.13
+    readonly property int fontSize: root_settingItem.height * 0.26
+    readonly property int fontSizeGuide: root_settingItem.height * 0.2
+  }
 
   // signal declare
   signal switched
@@ -25,14 +29,14 @@ Item {
   Text {
     id: setting_text
     visible: guideText === ""
-    width: root_settingItem.textWidth
+    width: attributes.textWidth
     clip: true
     anchors {
       verticalCenter: root_settingItem.verticalCenter
       left: root_settingItem.left
-      leftMargin: root_settingItem.textMargin
+      leftMargin: attributes.textMargin
     }
-    font.pixelSize: root_settingItem.fontSize
+    font.pixelSize: attributes.fontSize
     text: root_settingItem.label
     color: root_settingItem.contentColor
   }
@@ -40,13 +44,13 @@ Item {
   Text {
     id: setting_text_2
     visible: !setting_text.visible
-    width: root_settingItem.textWidth
+    width: attributes.textWidth
     clip: true
     anchors {
       verticalCenter: root_settingItem.verticalCenter
       verticalCenterOffset: -(setting_text_2.height / 2)
       left: root_settingItem.left
-      leftMargin: root_settingItem.textMargin
+      leftMargin: attributes.textMargin
     }
     font: setting_text.font
     text: root_settingItem.label
@@ -56,15 +60,15 @@ Item {
   Text {
     id: guide_text
     visible: !setting_text.visible
-    width: root_settingItem.textWidth
+    width: attributes.textWidth
     clip: true
     anchors {
       verticalCenter: root_settingItem.verticalCenter
       verticalCenterOffset: (setting_text_2.height / 2)
       left: root_settingItem.left
-      leftMargin: root_settingItem.textMargin
+      leftMargin: attributes.textMargin
     }
-    font.pixelSize: root_settingItem.height / 5
+    font.pixelSize: attributes.fontSizeGuide
     text: root_settingItem.guideText
     color: root_settingItem.contentColor
   }

@@ -12,11 +12,11 @@ Rectangle {
     id: switchBtn
     anchors.centerIn: parent
     switchSize: 120
-    isEnabled: AppModel.tempWarpConnected
+    isEnabled: QML_Model.qmlConnectStatus
     enableColor: Constants.SELECTION_GREEN
     onClicked: {
-      QML_Handler.qmlDebug("Enable button clicked")
-      AppModel.tempWarpConnected = !AppModel.tempWarpConnected
+      QML_Handler.qmlSendRequestEvent(WarpEnums.EVT_REQ_WARP_CONNECT,
+                                      !QML_Model.qmlConnectStatus)
     }
   }
 }

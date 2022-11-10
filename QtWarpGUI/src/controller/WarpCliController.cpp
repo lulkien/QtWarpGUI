@@ -1,11 +1,11 @@
 #include "WarpCliController.h"
 #include "Common.h"
-#include "AppModel.h"
+#include "QML_Model.h"
 #include "SettingsModel.h"
 #include <QStringList>
 #include <QByteArray>
 
-#define PROCESSING_DUMMY_TIME 5
+int RequestLocker::mLockerCount = 0;
 
 WarpCliController::WarpCliController()
 {
@@ -62,170 +62,187 @@ void WarpCliController::initSystemSettings()
 void WarpCliController::warpConnect()
 {
     LOG;
-    AppModel::instance().setProcessingRequest(true);
-#ifdef WARP_DEBUG
-    QString command = "echo \"warp-cli connect\"";
-    QThread::sleep(PROCESSING_DUMMY_TIME);
-#else
-    QString command = "warp-cli connect";
-#endif
-    QProcess process;
-    process.startCommand(command, QProcess::ReadOnly);
-    process.waitForFinished();
-    printResult("stdout:", QString(process.readAllStandardOutput()));
-    printResult("stderr:", QString(process.readAllStandardError()));
-    if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
+    RequestLocker guiLocker;
+    // set temporary status for QML
+    QML_Model::instance().setQmlConnectStatus(true);
+    if (!SettingsModel::instance().warpSvcActivated())
     {
-        LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
-        AppModel::instance().setTempWarpConnected(false);
+        LOG << "Unable to connect to CloudflareWARP daemon. Maybe the daemon is not running?";
+        QThread::sleep(1);
+        QML_Model::instance().setQmlConnectStatus(false);
+        return;
     }
     else
     {
-        SettingsModel::instance().setWarpConnected(true);
-        LOG << "Success";
+        this->doHandleConnect(QString(CMD_WARP_CONNECT), true);
+        return;
     }
-    AppModel::instance().setProcessingRequest(false);
-    return;
 }
 
 void WarpCliController::warpDisconnect()
 {
     LOG;
-    AppModel::instance().setProcessingRequest(true);
-#ifdef WARP_DEBUG
-    QString command = "echo \"warp-cli disconnect\"";
-    QThread::sleep(PROCESSING_DUMMY_TIME);
-#else
-    QString command = "warp-cli disconnect";
-#endif
-    QProcess process;
-    process.startCommand(command, QProcess::ReadOnly);
-    process.waitForFinished();
-    printResult("stdout:", QString(process.readAllStandardOutput()));
-    printResult("stderr:", QString(process.readAllStandardError()));
-    if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
-    {
-        LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
-        AppModel::instance().setTempWarpConnected(true);
-    }
-    else
-    {
-        SettingsModel::instance().setWarpConnected(false);
-        LOG << "Success";
-    }
-    AppModel::instance().setProcessingRequest(false);
+    RequestLocker guiLocker;
+    // set temporary status for QML
+    QML_Model::instance().setQmlConnectStatus(false);
+    this->doHandleConnect(QString(CMD_WARP_DISCONNECT), false);
     return;
 }
 
 void WarpCliController::activeWarpService()
 {
     LOG;
-    AppModel::instance().setProcessingRequest(true);
-#ifdef WARP_DEBUG
-    QString command = "echo \"systemctl start warp-svc.service\"";
-    QThread::sleep(PROCESSING_DUMMY_TIME);
-#else
-    QString command = "systemctl start warp-svc.service";
-#endif
-    QProcess process;
-    process.startCommand(command, QProcess::ReadOnly);
-    process.waitForFinished();
-    printResult("stdout:", QString(process.readAllStandardOutput()));
-    printResult("stderr:", QString(process.readAllStandardError()));
-    if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
-    {
-        LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
-        AppModel::instance().setTempWarpSvcActivated(false);
-    }
-    else
-    {
-        SettingsModel::instance().setWarpSvcActivated(true);
-        LOG << "Success";
-    }
-    AppModel::instance().setProcessingRequest(false);
+    RequestLocker guiLocker;
+    // set temporary status for QML
+    QML_Model::instance().setQmlActiveStatus(true);
+    this->doHandleActive(QString(CMD_WARP_SVC_ACTIVE), true);
     return;
 }
 
 void WarpCliController::inactiveWarpService()
 {
     LOG;
-    AppModel::instance().setProcessingRequest(true);
-#ifdef WARP_DEBUG
-    QString command = "echo \"systemctl stop warp-svc.service\"";
-    QThread::sleep(PROCESSING_DUMMY_TIME);
-#else
-    QString command = "systemctl stop warp-svc.service";
-#endif
-    QProcess process;
-    process.startCommand(command, QProcess::ReadOnly);
-    process.waitForFinished();
-    printResult("stdout:", QString(process.readAllStandardOutput()));
-    printResult("stderr:", QString(process.readAllStandardError()));
-    if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
+    RequestLocker guiLocker;
+    // disconnect then inactive
+    // set temporary status for QML
+    QML_Model::instance().setQmlActiveStatus(false);
+    if (SettingsModel::instance().warpConnected())
     {
-        AppModel::instance().setTempWarpSvcActivated(true);
+        this->doHandleConnect(QString(CMD_WARP_DISCONNECT), false);
     }
-    else
-    {
-        SettingsModel::instance().setWarpSvcActivated(false);
-        LOG << "Success";
-    }
-    AppModel::instance().setProcessingRequest(false);
+    this->doHandleActive(QString(CMD_WARP_SVC_INACTIVE), false);
     return;
 }
 
 void WarpCliController::enableWarpService()
 {
     LOG;
-    AppModel::instance().setProcessingRequest(true);
-#ifdef WARP_DEBUG
-    QString command = "echo \"systemctl enable warp-svc.service\"";
-    QThread::sleep(PROCESSING_DUMMY_TIME);
-#else
-    QString command = "systemctl enable warp-svc.service";
-#endif
-    QProcess process;
-    process.startCommand(command, QProcess::ReadOnly);
-    process.waitForFinished();
-    printResult("stdout:", QString(process.readAllStandardOutput()));
-    printResult("stderr:", QString(process.readAllStandardError()));
-    if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
-    {
-        AppModel::instance().setTempWarpSvcEnabled(false);
-    }
-    else
-    {
-        SettingsModel::instance().setWarpSvcEnabled(true);
-        LOG << "Success";
-    }
-    AppModel::instance().setProcessingRequest(false);
+    RequestLocker guiLocker;
+    // set temporary status for QML
+    QML_Model::instance().setQmlEnableStatus(true);
+    this->doHandleEnable(QString(CMD_WARP_SVC_ENABLE), true);
     return;
 }
 
 void WarpCliController::disableWarpService()
 {
     LOG;
-    AppModel::instance().setProcessingRequest(true);
-#ifdef WARP_DEBUG
-    QString command = "echo \"systemctl disable warp-svc.service\"";
-    QThread::sleep(PROCESSING_DUMMY_TIME);
-#else
-    QString command = "systemctl disable warp-svc.service";
-#endif
+    RequestLocker guiLocker;
+    // set temporary status for QML
+    QML_Model::instance().setQmlEnableStatus(false);
+    this->doHandleEnable(QString(CMD_WARP_SVC_DISABLE), false);
+    return;
+}
+
+void WarpCliController::doHandleConnect(const QString &command, const bool &expectedResult)
+{
+    LOG << expectedResult;
+    // create process
     QProcess process;
     process.startCommand(command, QProcess::ReadOnly);
     process.waitForFinished();
+
+#ifdef WARP_DEBUG
+    QThread::sleep(1);
+#endif
+
+    // print log
     printResult("stdout:", QString(process.readAllStandardOutput()));
     printResult("stderr:", QString(process.readAllStandardError()));
+
+    // check exit
     if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
     {
-        AppModel::instance().setTempWarpSvcEnabled(true);
+        LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
+        // reset temporary status for QML
+        QML_Model::instance().setQmlConnectStatus(!expectedResult);
     }
     else
     {
-        SettingsModel::instance().setWarpSvcEnabled(false);
+        // confirm final status
+        SettingsModel::instance().setWarpConnected(expectedResult);
         LOG << "Success";
     }
-    AppModel::instance().setProcessingRequest(false);
     return;
+}
+
+void WarpCliController::doHandleActive(const QString &command, const bool &expectedResult)
+{
+    LOG << expectedResult;
+    // create process
+    QProcess process;
+    process.startCommand(command, QProcess::ReadOnly);
+    process.waitForFinished();
+
+#ifdef WARP_DEBUG
+    QThread::sleep(1);
+#endif
+
+    // print log
+    printResult("stdout:", QString(process.readAllStandardOutput()));
+    printResult("stderr:", QString(process.readAllStandardError()));
+
+    // check exit
+    if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
+    {
+        LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
+        // reset temporary status for QML
+        QML_Model::instance().setQmlActiveStatus(!expectedResult);
+    }
+    else
+    {
+        // confirm final status
+        SettingsModel::instance().setWarpSvcActivated(expectedResult);
+        LOG << "Success";
+    }
+    return;
+}
+
+void WarpCliController::doHandleEnable(const QString &command, const bool &expectedResult)
+{
+    LOG << expectedResult;
+    // create process
+    QProcess process;
+    process.startCommand(command, QProcess::ReadOnly);
+    process.waitForFinished();
+
+#ifdef WARP_DEBUG
+    QThread::sleep(1);
+#endif
+
+    // print log
+    printResult("stdout:", QString(process.readAllStandardOutput()));
+    printResult("stderr:", QString(process.readAllStandardError()));
+
+    // check exit
+    if (process.exitCode() != 0 || process.exitStatus() != QProcess::NormalExit)
+    {
+        LOG << "ExitCode:" << process.exitCode() << "| ExitStatus:" << process.exitStatus();
+        // reset temporary status for QML
+        QML_Model::instance().setQmlEnableStatus(!expectedResult);
+    }
+    else
+    {
+        // confirm final status
+        SettingsModel::instance().setWarpSvcEnabled(expectedResult);
+        LOG << "Success";
+    }
+    return;
+}
+
+RequestLocker::RequestLocker()
+{
+    if (mLockerCount != 0)
+    {
+        LOG << "More than one instance of RequestLocker exists at a time:" << mLockerCount;
+        abort();
+    }
+    mLockerCount++;
+    QML_Model::instance().setProcessingRequest(true);
+}
+
+RequestLocker::~RequestLocker()
+{
+    mLockerCount = 0;
+    QML_Model::instance().setProcessingRequest(false);
 }

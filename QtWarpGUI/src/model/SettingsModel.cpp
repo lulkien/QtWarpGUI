@@ -1,5 +1,5 @@
 #include "SettingsModel.h"
-#include "AppModel.h"
+#include "QML_Model.h"
 
 SettingsModel &SettingsModel::instance()
 {
@@ -15,7 +15,7 @@ bool SettingsModel::warpConnected() const
 void SettingsModel::setWarpConnected(bool newWarpConnected)
 {
     m_warpConnected = newWarpConnected;
-    AppModel::instance().setTempWarpConnected(m_warpConnected);
+    QML_Model::instance().setQmlConnectStatus(m_warpConnected);
 }
 
 bool SettingsModel::warpSvcActivated() const
@@ -26,7 +26,7 @@ bool SettingsModel::warpSvcActivated() const
 void SettingsModel::setWarpSvcActivated(bool newWarpSvcActivated)
 {
     m_warpSvcActivated = newWarpSvcActivated;
-    AppModel::instance().setTempWarpSvcActivated(m_warpSvcActivated);
+    QML_Model::instance().setQmlActiveStatus(m_warpSvcActivated);
 }
 
 bool SettingsModel::warpSvcEnabled() const
@@ -37,7 +37,7 @@ bool SettingsModel::warpSvcEnabled() const
 void SettingsModel::setWarpSvcEnabled(bool newWarpSvcEnabled)
 {
     m_warpSvcEnabled = newWarpSvcEnabled;
-    AppModel::instance().setTempWarpSvcEnabled(m_warpSvcEnabled);
+    QML_Model::instance().setQmlEnableStatus(m_warpSvcEnabled);
 }
 
 SettingsModel::SettingsModel()

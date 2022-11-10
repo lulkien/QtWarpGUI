@@ -6,6 +6,14 @@
 #include <QString>
 #include <QThread>
 
+class RequestLocker
+{
+    static int mLockerCount;
+public:
+    RequestLocker();
+    ~RequestLocker();
+};
+
 class WarpCliController : public QObject
 {
     Q_OBJECT
@@ -23,8 +31,10 @@ public slots:
     void enableWarpService();
     void disableWarpService();
 
-
 private:
+    void doHandleConnect(const QString& command, const bool& expectedResult);
+    void doHandleActive(const QString& command, const bool& expectedResult);
+    void doHandleEnable(const QString& command, const bool& expectedResult);
     void printResult(QString prefix, QString data);
 
 private slots:
