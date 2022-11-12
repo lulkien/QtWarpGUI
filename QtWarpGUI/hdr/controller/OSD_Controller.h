@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
+#include <QTimer>
 #include <QUrl>
 #include <QMap>
 #include "WarpEnums.h"
@@ -22,12 +23,16 @@ public:
     bool isShowingOSD() const;
 
 private slots:
+    void hideAnimTimeout();
+    void showAnimTimeout();
+    void initializeOsdController();
 
 private:
     QQmlApplicationEngine *mEngine;
     QQuickItem *mRootItem;
     QObject *mCurrentOsdObject;
     WarpEnums::OSDIndex mCurrentOSD;
+    QTimer mHideTimer;
 
 signals:
 

@@ -2,6 +2,7 @@ QT += quick qml
 CONFIG += qmltypes
 
 DEFINES += WARP_DEBUG
+#DEFINES += USING_OSD_ANIMATION
 
 INCLUDEPATH += \
         hdr \

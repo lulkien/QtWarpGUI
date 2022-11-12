@@ -12,6 +12,7 @@ Item {
     readonly property int popupWidth: root_ssOSD.width / 2
     readonly property int popupHeight: root_ssOSD.height / 2
     readonly property int guideTextSize: popupHeight / 15
+    property bool hiding: false
   }
 
   Rectangle {
@@ -21,19 +22,13 @@ Item {
     opacity: 0.5
   }
 
-  opacity: 1
-  Behavior on opacity {
-    NumberAnimation {
-      duration: 100
-    }
-  }
-
   MouseArea {
     anchors.fill: parent
   }
 
   Rectangle {
     id: popup
+    visible: !attributes.hiding
     width: attributes.popupWidth
     height: attributes.popupHeight
     radius: height / 10
@@ -55,7 +50,7 @@ Item {
       horizontalAlignment: Text.AlignHCenter
       wrapMode: Text.WordWrap
       color: Constants.ALMOST_BLACK
-      text: "<br><br>Unable to connect to CloudflareWARP daemon.<br>Maybe the daemon is not running?<br>Start warp-svc.service in tab Setting."
+      text: "<br><br>Unable to connect to CloudflareWARP daemon.<br>Maybe the daemon is not running?<br>Start warp-svc.service in Setup."
     }
 
     KCommon.KButton {
@@ -76,31 +71,33 @@ Item {
       pColor: Constants.RED_OPTION_P
       label: "Close"
       onClicked: {
+        attributes.hiding = true
         QML_Handler.qmlSendRequestEvent(
               WarpEnums.EVT_HIDE_OSD_REQUIRE_START_SVC)
       }
     }
-  }
 
-  KCommon.KButton {
-    id: ok
-    width: popup.width / 3
-    height: popup.height / 4
-    anchors {
-      bottom: popup.bottom
-      bottomMargin: height / 2
-      right: popup.right
-      rightMargin: (popup.width / 2 - width) / 2
-    }
+    KCommon.KButton {
+      id: ok
+      width: popup.width / 3
+      height: popup.height / 4
+      anchors {
+        bottom: popup.bottom
+        bottomMargin: height / 2
+        right: popup.right
+        rightMargin: (popup.width / 2 - width) / 2
+      }
 
-    isRounded: true
-    labelSize: height / 3
-    labelBold: true
-    nColor: Constants.GREEN_OPTION_N
-    pColor: Constants.GREEN_OPTION_P
-    label: "Go to Setting"
-    onClicked: {
-      QML_Handler.qmlSendRequestEvent(WarpEnums.EVT_REQ_GO_TO_SETTING)
+      isRounded: true
+      labelSize: height / 3
+      labelBold: true
+      nColor: Constants.GREEN_OPTION_N
+      pColor: Constants.GREEN_OPTION_P
+      label: "Go to Setting"
+      onClicked: {
+        attributes.hiding = true
+        QML_Handler.qmlSendRequestEvent(WarpEnums.EVT_REQ_GO_TO_SETTING)
+      }
     }
   }
 }

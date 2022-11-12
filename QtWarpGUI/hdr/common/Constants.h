@@ -30,18 +30,18 @@ private:
 
     // Start define
     // Window size
-    DEFINES(int,    MONITOR_WIDTH,          QGuiApplication::primaryScreen()->geometry().width())
-    DEFINES(int,    MONITOR_HEIGHT,         QGuiApplication::primaryScreen()->geometry().height())
-    DEFINES(int,    WINDOW_WIDTH,           static_cast<int>(MONITOR_WIDTH() * 0.5f))
-    DEFINES(int,    WINDOW_HEIGHT,          static_cast<int>(MONITOR_HEIGHT() * 0.5f))
+    DEFINES(qreal,  MONITOR_WIDTH,          QGuiApplication::primaryScreen()->geometry().width())
+    DEFINES(qreal,  MONITOR_HEIGHT,         QGuiApplication::primaryScreen()->geometry().height())
+    DEFINES(qreal,  WINDOW_WIDTH,           static_cast<int>(MONITOR_WIDTH() * 0.5f))
+    DEFINES(qreal,  WINDOW_HEIGHT,          static_cast<int>(MONITOR_HEIGHT() * 0.5f))
 
     // Item size
-    DEFINES(int,    TAB_SIZE,               static_cast<int>(WINDOW_HEIGHT() / 6))
-    DEFINES(int,    TAB_ICO_SIZE,           static_cast<int>(TAB_SIZE() * 0.4f))
-    DEFINES(int,    TAB_PAGE_WIDTH,         WINDOW_WIDTH() - TAB_SIZE())
-    DEFINES(int,    TAB_PAGE_HEIGHT,        WINDOW_HEIGHT())
-    DEFINES(int,    SETTING_ITEM_WIDTH,     static_cast<int>(TAB_PAGE_WIDTH() * 0.5f))
-    DEFINES(int,    SETTING_ITEM_HEIGHT,    static_cast<int>(TAB_PAGE_HEIGHT() / 8))
+    DEFINES(qreal,  TAB_SIZE,               static_cast<int>(WINDOW_HEIGHT() / 6))
+    DEFINES(qreal,  TAB_ICO_SIZE,           static_cast<int>(TAB_SIZE() * 0.4f))
+    DEFINES(qreal,  TAB_PAGE_WIDTH,         WINDOW_WIDTH() - TAB_SIZE())
+    DEFINES(qreal,  TAB_PAGE_HEIGHT,        WINDOW_HEIGHT())
+    DEFINES(qreal,  SETTING_ITEM_WIDTH,     static_cast<int>(TAB_PAGE_WIDTH() * 0.5f))
+    DEFINES(qreal,  SETTING_ITEM_HEIGHT,    static_cast<int>(TAB_PAGE_HEIGHT() / 8))
 
     // Define color
     DEFINES(QColor, ALMOST_BLACK,           "#111111")
@@ -64,7 +64,7 @@ private:
     DEFINES(QColor, RED_OPTION_N,           "#FF6969")
     DEFINES(QColor, RED_OPTION_P,           "#DE4040")
     DEFINES(QColor, GREEN_OPTION_N,         "#64EC7D")
-    DEFINES(QColor, GREEN_OPTION_P,         "#3BDF68")
+    DEFINES(QColor, GREEN_OPTION_P,         "#42BC58")
     DEFINES(QColor, INVISIBLE,              "transparent")
 
     // QML Url
