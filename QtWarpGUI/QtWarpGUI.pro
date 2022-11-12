@@ -1,7 +1,7 @@
 QT += quick qml
 CONFIG += qmltypes
 
-#DEFINES += WARP_DEBUG
+DEFINES += WARP_DEBUG
 
 INCLUDEPATH += \
         hdr \
@@ -17,8 +17,8 @@ SOURCES += \
         src/common/Constants.cpp \
         src/common/WarpEnums.cpp \
         src/controller/QML_Handler.cpp \
+        src/model/ApplicationModel.cpp \
         src/model/QML_Model.cpp \
-        src/model/SettingsModel.cpp \
         src/model/TabListModel.cpp
 
 HEADERS += \
@@ -28,8 +28,8 @@ HEADERS += \
     hdr/common/WarpEnums.h \
     hdr/controller/QML_Handler.h \
     hdr/controller/WarpCliController.h \
+    hdr/model/ApplicationModel.h \
     hdr/model/QML_Model.h \
-    hdr/model/SettingsModel.h \
     hdr/model/TabListModel.h
 
 # Declare QML files
@@ -44,6 +44,7 @@ qml_file.files += \
         qml/components/KTabLoader.qml \
         qml/components/KWindow.qml \
         qml/main.qml \
+        qml/screens/OSDs/Warp_OSD_StartService.qml \
         qml/screens/tabs/Warp_HomeTab.qml \
         qml/screens/tabs/Warp_InfoTab.qml \
         qml/screens/tabs/Warp_SetupTab.qml \

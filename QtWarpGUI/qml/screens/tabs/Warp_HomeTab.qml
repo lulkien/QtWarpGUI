@@ -13,7 +13,6 @@ Rectangle {
     anchors.centerIn: parent
     switchSize: 120
     isEnabled: QML_Model.qmlConnectStatus
-    enableColor: Constants.SELECTION_GREEN
     onClicked: {
       QML_Handler.qmlSendRequestEvent(WarpEnums.EVT_REQ_WARP_CONNECT,
                                       !QML_Model.qmlConnectStatus)

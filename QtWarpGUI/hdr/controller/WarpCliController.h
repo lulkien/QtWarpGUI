@@ -42,6 +42,7 @@ private slots:
 private:
 
 signals:
+    void notifyServiceNotStarted();
 
 };
 

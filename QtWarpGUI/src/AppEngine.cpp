@@ -4,6 +4,9 @@
 #include "QML_Handler.h"
 #include "WarpCliController.h"
 #include <QQmlContext>
+#include <QQmlComponent>
+#include <QQuickItem>
+#include <QQuickWindow>
 
 AppEngine::AppEngine(QGuiApplication *app)
     : m_app { app }
@@ -76,10 +79,10 @@ void AppEngine::initConnections()
 {
     LOG;
     connect(m_warpWorker, &QThread::finished, m_warpWorker, &QObject::deleteLater);
-    // Thread
+    // QThread - > QThread
     connect(&QML_Handler::instance(), &QML_Handler::notifyRequestEvent,
             this, &AppEngine::onNotifyRequestEvent);
-    // Warp-Cli
+    // this -> Warp-Cli
     connect(this, &AppEngine::reqWarpConnect,
             m_warpController, &WarpCliController::warpConnect, Qt::QueuedConnection);
     connect(this, &AppEngine::reqWarpDisconnect,
@@ -92,6 +95,9 @@ void AppEngine::initConnections()
             m_warpController, &WarpCliController::enableWarpService, Qt::QueuedConnection);
     connect(this, &AppEngine::reqDisableWarpService,
             m_warpController, &WarpCliController::disableWarpService, Qt::QueuedConnection);
+    // Warp-Cli -> this
+    connect(m_warpController, &WarpCliController::notifyServiceNotStarted,
+            this, &AppEngine::onNotifyServiceNotStarted, Qt::QueuedConnection);
 }
 
 void AppEngine::initSettings()
@@ -142,5 +148,15 @@ void AppEngine::onNotifyRequestEvent(WarpEnums::RequestEvent event, QVariant dat
         LOG << "Default case";
         break;
     }
+}
+
+void AppEngine::onNotifyServiceNotStarted()
+{
+    LOG;
+    QQmlComponent component(this, QUrl(u"qrc:/QtWarpGUI/qml/screens/OSDs/Warp_OSD_StartService.qml"_qs));
+    QObject *object = component.create();
+    QQuickItem *item = qobject_cast<QQuickItem *>(object);
+    item->setParentItem((QQuickItem*)((QQuickWindow *) this->rootObjects()[0])->contentItem());
+//    item->setVisible(true);
 }
 

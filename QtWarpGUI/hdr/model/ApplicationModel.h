@@ -1,13 +1,13 @@
-#ifndef SETTINGSMODEL_H
-#define SETTINGSMODEL_H
+#ifndef APPLICATIONMODEL_H
+#define APPLICATIONMODEL_H
 
 #include <QtGlobal>
 
-class SettingsModel final
+class ApplicationModel final
 {
-    Q_DISABLE_COPY(SettingsModel)
+    Q_DISABLE_COPY(ApplicationModel)
 public:
-    static SettingsModel &instance();
+    static ApplicationModel &instance();
 
     bool warpConnected() const;
     void setWarpConnected(bool newWarpConnected);
@@ -19,7 +19,7 @@ public:
     void setWarpSvcEnabled(bool newWarpSvcEnabled);
 
 private:
-    SettingsModel();
+    ApplicationModel();
 
 private:
     bool m_warpConnected;
@@ -28,4 +28,4 @@ private:
 
 };
 
-#endif // SETTINGSMODEL_H
+#endif // APPLICATIONMODEL_H

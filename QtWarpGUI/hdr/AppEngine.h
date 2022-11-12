@@ -37,6 +37,7 @@ private:
 
 private slots:
     void onNotifyRequestEvent(WarpEnums::RequestEvent event, QVariant data);
+    void onNotifyServiceNotStarted();
 
 private:
     QGuiApplication *m_app;

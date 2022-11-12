@@ -26,9 +26,4 @@ SystemTrayIcon {
   }
 
   // signal handler
-  onActivated: reason => {
-                 if (SystemTrayIcon.Trigger === reason) {
-                   console.warn("SystemTrayIcon.Trigger...")
-                 }
-               }
 }

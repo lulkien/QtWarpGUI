@@ -1,46 +1,46 @@
-#include "SettingsModel.h"
+#include "ApplicationModel.h"
 #include "QML_Model.h"
 
-SettingsModel &SettingsModel::instance()
+ApplicationModel &ApplicationModel::instance()
 {
-    static SettingsModel self;
+    static ApplicationModel self;
     return self;
 }
 
-bool SettingsModel::warpConnected() const
+bool ApplicationModel::warpConnected() const
 {
     return m_warpConnected;
 }
 
-void SettingsModel::setWarpConnected(bool newWarpConnected)
+void ApplicationModel::setWarpConnected(bool newWarpConnected)
 {
     m_warpConnected = newWarpConnected;
     QML_Model::instance().setQmlConnectStatus(m_warpConnected);
 }
 
-bool SettingsModel::warpSvcActivated() const
+bool ApplicationModel::warpSvcActivated() const
 {
     return m_warpSvcActivated;
 }
 
-void SettingsModel::setWarpSvcActivated(bool newWarpSvcActivated)
+void ApplicationModel::setWarpSvcActivated(bool newWarpSvcActivated)
 {
     m_warpSvcActivated = newWarpSvcActivated;
     QML_Model::instance().setQmlActiveStatus(m_warpSvcActivated);
 }
 
-bool SettingsModel::warpSvcEnabled() const
+bool ApplicationModel::warpSvcEnabled() const
 {
     return m_warpSvcEnabled;
 }
 
-void SettingsModel::setWarpSvcEnabled(bool newWarpSvcEnabled)
+void ApplicationModel::setWarpSvcEnabled(bool newWarpSvcEnabled)
 {
     m_warpSvcEnabled = newWarpSvcEnabled;
     QML_Model::instance().setQmlEnableStatus(m_warpSvcEnabled);
 }
 
-SettingsModel::SettingsModel()
+ApplicationModel::ApplicationModel()
     : m_warpConnected       { false }
     , m_warpSvcActivated    { false }
     , m_warpSvcEnabled      { false }

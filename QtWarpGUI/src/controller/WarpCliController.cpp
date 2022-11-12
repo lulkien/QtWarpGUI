@@ -1,7 +1,7 @@
 #include "WarpCliController.h"
 #include "Common.h"
 #include "QML_Model.h"
-#include "SettingsModel.h"
+#include "ApplicationModel.h"
 #include <QStringList>
 #include <QByteArray>
 
@@ -42,7 +42,7 @@ void WarpCliController::initSystemSettings()
         abort();
     }
     _stdout = QString(process.readAllStandardOutput()).trimmed();
-    SettingsModel::instance().setWarpSvcEnabled(QString("enabled") == _stdout);
+    ApplicationModel::instance().setWarpSvcEnabled(QString("enabled") == _stdout);
     LOG << _cmd << "---->" << _stdout;
 
     // check service active
@@ -54,7 +54,7 @@ void WarpCliController::initSystemSettings()
         abort();
     }
     _stdout = QString(process.readAllStandardOutput()).trimmed();
-    SettingsModel::instance().setWarpSvcActivated(QString("active") == _stdout);
+    ApplicationModel::instance().setWarpSvcActivated(QString("active") == _stdout);
     LOG << _cmd << "---->" << _stdout;
     return;
 }
@@ -65,11 +65,12 @@ void WarpCliController::warpConnect()
     RequestLocker guiLocker;
     // set temporary status for QML
     QML_Model::instance().setQmlConnectStatus(true);
-    if (!SettingsModel::instance().warpSvcActivated())
+    if (!ApplicationModel::instance().warpSvcActivated())
     {
         LOG << "Unable to connect to CloudflareWARP daemon. Maybe the daemon is not running?";
         QThread::sleep(1);
         QML_Model::instance().setQmlConnectStatus(false);
+        emit notifyServiceNotStarted();
         return;
     }
     else
@@ -106,7 +107,7 @@ void WarpCliController::inactiveWarpService()
     // disconnect then inactive
     // set temporary status for QML
     QML_Model::instance().setQmlActiveStatus(false);
-    if (SettingsModel::instance().warpConnected())
+    if (ApplicationModel::instance().warpConnected())
     {
         this->doHandleConnect(QString(CMD_WARP_DISCONNECT), false);
     }
@@ -160,7 +161,7 @@ void WarpCliController::doHandleConnect(const QString &command, const bool &expe
     else
     {
         // confirm final status
-        SettingsModel::instance().setWarpConnected(expectedResult);
+        ApplicationModel::instance().setWarpConnected(expectedResult);
         LOG << "Success";
     }
     return;
@@ -192,7 +193,7 @@ void WarpCliController::doHandleActive(const QString &command, const bool &expec
     else
     {
         // confirm final status
-        SettingsModel::instance().setWarpSvcActivated(expectedResult);
+        ApplicationModel::instance().setWarpSvcActivated(expectedResult);
         LOG << "Success";
     }
     return;
@@ -224,7 +225,7 @@ void WarpCliController::doHandleEnable(const QString &command, const bool &expec
     else
     {
         // confirm final status
-        SettingsModel::instance().setWarpSvcEnabled(expectedResult);
+        ApplicationModel::instance().setWarpSvcEnabled(expectedResult);
         LOG << "Success";
     }
     return;

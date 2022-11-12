@@ -33,6 +33,11 @@
 #define CMD_WARP_SVC_DISABLE    "systemctl disable warp-svc.service"
 #endif
 
+// general define
+#define CAST        static_cast
+#define DCAST       dynamic_cast
+#define RCAST       reinterpret_cast
+#define QCAST       qobject_cast
 
 // static functions
 namespace {
