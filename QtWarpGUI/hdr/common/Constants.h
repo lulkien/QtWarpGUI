@@ -26,7 +26,6 @@ public:
     static Constants *create(QQmlEngine *, QJSEngine *);
 
 private:
-    static Constants self;
     Constants();
 
     // Start define
@@ -62,22 +61,29 @@ private:
     DEFINES(QColor, ORANGE_CLOUDFLARE_L,    "#FAAE40")
     DEFINES(QColor, ALMOST_WHITE,           "#FAFAFA")
     DEFINES(QColor, KINDA_RED,              "#FF6161")
+    DEFINES(QColor, RED_OPTION_N,           "#FF6969")
+    DEFINES(QColor, RED_OPTION_P,           "#DE4040")
+    DEFINES(QColor, GREEN_OPTION_N,         "#64EC7D")
+    DEFINES(QColor, GREEN_OPTION_P,         "#3BDF68")
     DEFINES(QColor, INVISIBLE,              "transparent")
 
     // QML Url
-    DEFINES(QUrl,   MAIN_QML,           u"qrc:/QtWarpGUI/qml/main.qml"_qs)
-    DEFINES(QUrl,   MAIN_SCREEN_QML,    u"qrc:/QtWarpGUI/qml/screens/Warp_MainScreen.qml"_qs)
-    DEFINES(QUrl,   HOME_TAB_QML,       u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_HomeTab.qml"_qs)
-    DEFINES(QUrl,   INFO_TAB_QML,       u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_InfoTab.qml"_qs)
-    DEFINES(QUrl,   SETUP_TAB_QML,      u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_SetupTab.qml"_qs)
-    DEFINES(QUrl,   USER_TAB_QML,       u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_UserTab.qml"_qs)
+    DEFINES(QUrl,   MAIN_QML,               u"qrc:/QtWarpGUI/qml/main.qml"_qs)
+    DEFINES(QUrl,   MAIN_SCREEN_QML,        u"qrc:/QtWarpGUI/qml/screens/Warp_MainScreen.qml"_qs)
+    DEFINES(QUrl,   HOME_TAB_QML,           u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_HomeTab.qml"_qs)
+    DEFINES(QUrl,   INFO_TAB_QML,           u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_InfoTab.qml"_qs)
+    DEFINES(QUrl,   SETUP_TAB_QML,          u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_SetupTab.qml"_qs)
+    DEFINES(QUrl,   USER_TAB_QML,           u"qrc:/QtWarpGUI/qml/screens/tabs/Warp_UserTab.qml"_qs)
+
+    // for OSDs
+    DEFINES(QUrl,   OSD_REQ_START_SVC,      u"qrc:/QtWarpGUI/qml/screens/OSDs/Warp_OSD_StartService.qml"_qs)
 
     // Images Url
-    DEFINES(QUrl,   TRAY_ICO,           u"qrc:/QtWarpGUI/res/images/cloudflare.svg"_qs)
-    DEFINES(QUrl,   HOME_ICO,           u"qrc:/QtWarpGUI/res/images/home.svg"_qs)
-    DEFINES(QUrl,   USER_ICO,           u"qrc:/QtWarpGUI/res/images/user.svg"_qs)
-    DEFINES(QUrl,   SETUP_ICO,          u"qrc:/QtWarpGUI/res/images/setup.svg"_qs)
-    DEFINES(QUrl,   INFO_ICO,           u"qrc:/QtWarpGUI/res/images/info.svg"_qs)
+    DEFINES(QUrl,   TRAY_ICO,               u"qrc:/QtWarpGUI/res/images/cloudflare.svg"_qs)
+    DEFINES(QUrl,   HOME_ICO,               u"qrc:/QtWarpGUI/res/images/home.svg"_qs)
+    DEFINES(QUrl,   USER_ICO,               u"qrc:/QtWarpGUI/res/images/user.svg"_qs)
+    DEFINES(QUrl,   SETUP_ICO,              u"qrc:/QtWarpGUI/res/images/setup.svg"_qs)
+    DEFINES(QUrl,   INFO_ICO,               u"qrc:/QtWarpGUI/res/images/info.svg"_qs)
 };
 
 #endif // CONSTANTS_H

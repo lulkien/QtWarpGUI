@@ -24,11 +24,11 @@ void QML_Model::init()
 }
 
 QML_Model::QML_Model()
-    : m_currentTab              { static_cast<int>(WarpEnums::SETUP) }
-    , m_qmlConnectStatus       { false }
-    , m_qmlActiveStatus    { false }
-    , m_qmlEnableStatus      { false }
-    , m_processingRequest       { false }
+    : m_currentTab          { static_cast<int>(WarpEnums::HOME) }
+    , m_qmlConnectStatus    { false }
+    , m_qmlActiveStatus     { false }
+    , m_qmlEnableStatus     { false }
+    , m_processingRequest   { false }
 {
     LOG;
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);

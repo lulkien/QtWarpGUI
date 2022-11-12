@@ -10,6 +10,7 @@
 #include "WarpEnums.h"
 #include "TabListModel.h"
 #include "WarpCliController.h"
+#include "OSD_Controller.h"
 
 class AppEngine : public QQmlApplicationEngine
 {
@@ -29,6 +30,7 @@ private:
     void initQmlContexts();
     void initConnections();
     void initSettings();
+    void createQmlOSDController();
 
     // general
     void handleRequestWarpConnect(bool isReqConnect);
@@ -43,6 +45,7 @@ private:
     QGuiApplication *m_app;
     TabListModel *m_tabListModel;
     WarpCliController *m_warpController;
+    OSD_Controller *m_osdController;
     QThread *m_warpWorker;
 
 signals:

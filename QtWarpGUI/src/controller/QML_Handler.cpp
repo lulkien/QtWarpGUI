@@ -1,16 +1,15 @@
 #include "QML_Handler.h"
 #include "Common.h"
 
-QML_Handler QML_Handler::self;
-
 QML_Handler &QML_Handler::instance()
 {
+    static QML_Handler self;
     return self;
 }
 
 QML_Handler *QML_Handler::create(QQmlEngine *, QJSEngine *)
 {
-    return &self;
+    return &instance();
 }
 
 void QML_Handler::qmlDebug(QString msg)

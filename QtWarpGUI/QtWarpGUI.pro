@@ -12,10 +12,10 @@ INCLUDEPATH += \
 
 SOURCES += \
         src/AppEngine.cpp \
+        src/controller/OSD_Controller.cpp \
         src/controller/WarpCliController.cpp \
         src/main.cpp \
         src/common/Constants.cpp \
-        src/common/WarpEnums.cpp \
         src/controller/QML_Handler.cpp \
         src/model/ApplicationModel.cpp \
         src/model/QML_Model.cpp \
@@ -26,6 +26,7 @@ HEADERS += \
     hdr/common/Common.h \
     hdr/common/Constants.h \
     hdr/common/WarpEnums.h \
+    hdr/controller/OSD_Controller.h \
     hdr/controller/QML_Handler.h \
     hdr/controller/WarpCliController.h \
     hdr/model/ApplicationModel.h \

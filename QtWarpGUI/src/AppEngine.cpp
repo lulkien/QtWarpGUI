@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "Constants.h"
 #include "QML_Handler.h"
+#include "QML_Model.h"
 #include "WarpCliController.h"
 #include <QQmlContext>
 #include <QQmlComponent>
@@ -19,6 +20,7 @@ AppEngine::~AppEngine()
     LOG;
     safeDelete<TabListModel>(m_tabListModel);
     safeDelete<WarpCliController>(m_warpController);
+    safeDelete<OSD_Controller>(m_osdController);
 }
 
 void AppEngine::startApplication()
@@ -36,6 +38,9 @@ void AppEngine::startApplication()
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     this->load(url);
+
+    // create QML OSD Ctroller after load qml
+    createQmlOSDController();
 }
 
 bool AppEngine::initApplication()
@@ -105,6 +110,11 @@ void AppEngine::initSettings()
     m_warpController->initSystemSettings(); // this function must be called in main thread
 }
 
+void AppEngine::createQmlOSDController()
+{
+    m_osdController = new OSD_Controller(this);
+}
+
 void AppEngine::handleRequestWarpConnect(bool isReqConnect)
 {
     LOG << isReqConnect;
@@ -144,6 +154,13 @@ void AppEngine::onNotifyRequestEvent(WarpEnums::RequestEvent event, QVariant dat
     case WarpEnums::EVT_REQ_ENABLE_WARP_SERVICE:
         this->handleRequestEnableService(data.toBool());
         break;
+    case WarpEnums::EVT_REQ_GO_TO_SETTING:
+        m_osdController->hideOSD(WarpEnums::OSD_REQUIRE_START_SERVICE);
+        QML_Model::instance().setCurrentTab(WarpEnums::SETUP);
+        break;
+    case WarpEnums::EVT_HIDE_OSD_REQUIRE_START_SVC:
+        m_osdController->hideOSD(WarpEnums::OSD_REQUIRE_START_SERVICE);
+        break;
     default:
         LOG << "Default case";
         break;
@@ -153,10 +170,6 @@ void AppEngine::onNotifyRequestEvent(WarpEnums::RequestEvent event, QVariant dat
 void AppEngine::onNotifyServiceNotStarted()
 {
     LOG;
-    QQmlComponent component(this, QUrl(u"qrc:/QtWarpGUI/qml/screens/OSDs/Warp_OSD_StartService.qml"_qs));
-    QObject *object = component.create();
-    QQuickItem *item = qobject_cast<QQuickItem *>(object);
-    item->setParentItem((QQuickItem*)((QQuickWindow *) this->rootObjects()[0])->contentItem());
-//    item->setVisible(true);
+    m_osdController->showOSD(WarpEnums::OSD_REQUIRE_START_SERVICE);
 }
 

@@ -1,15 +1,14 @@
 #include "Constants.h"
 
-Constants Constants::self;
-
 Constants &Constants::instance()
 {
+    static Constants self;
     return self;
 }
 
 Constants *Constants::create(QQmlEngine *, QJSEngine *)
 {
-    return &self;
+    return &instance();
 }
 
 Constants::Constants()

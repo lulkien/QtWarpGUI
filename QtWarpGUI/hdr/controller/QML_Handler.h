@@ -18,10 +18,9 @@ public:
 public slots:
     void qmlDebug(QString msg);
     void qmlSendGUIEvent(WarpEnums::GUIEvents _event);
-    void qmlSendRequestEvent(WarpEnums::RequestEvent _event, QVariant data = QVariant());
+    void qmlSendRequestEvent(WarpEnums::RequestEvent _event, QVariant data = QVariant(0));
 
 private:
-    static QML_Handler self;
     QML_Handler();
 
 signals:
