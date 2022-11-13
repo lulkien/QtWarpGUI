@@ -59,6 +59,10 @@ public:
     };
     Q_ENUM(OSDIndex)
 
+    enum Language {
+        en_US = 0,
+    };
+
 public:
     WarpEnums() {}
     virtual ~WarpEnums() {};

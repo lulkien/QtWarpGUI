@@ -2,14 +2,14 @@ QT += quick qml
 CONFIG += qmltypes
 
 DEFINES += WARP_DEBUG
-#DEFINES += USING_OSD_ANIMATION
+DEFINES += USING_OSD_ANIMATION
 
 INCLUDEPATH += \
         hdr \
         hdr/controller \
         hdr/common \
-        hdr/utils \
-        hdr/model
+        hdr/model \
+        hdr/utils
 
 SOURCES += \
         src/AppEngine.cpp \
@@ -20,7 +20,8 @@ SOURCES += \
         src/controller/QML_Handler.cpp \
         src/model/ApplicationModel.cpp \
         src/model/QML_Model.cpp \
-        src/model/TabListModel.cpp
+        src/model/TabListModel.cpp \
+        src/utils/Translator.cpp
 
 HEADERS += \
     hdr/AppEngine.h \
@@ -32,7 +33,8 @@ HEADERS += \
     hdr/controller/WarpCliController.h \
     hdr/model/ApplicationModel.h \
     hdr/model/QML_Model.h \
-    hdr/model/TabListModel.h
+    hdr/model/TabListModel.h \
+    hdr/utils/Translator.h
 
 # Declare QML files
 qml_file.files += \
@@ -64,7 +66,16 @@ img_files.files += \
         res/images/info.svg
 img_files.prefix = /$${TARGET}
 
-RESOURCES += qml_file img_files
+# Declare translation qm files
+trans.files += \
+        res/translations/qm/en_US.qm
+trans.prefix = /$${TARGET}
+
+RESOURCES += qml_file img_files trans
+
+# Declare translation ts files
+TRANSLATIONS += \
+        res/translations/ts/en_US.ts
 
 # Set QML_IMPORT_NAME
 QML_IMPORT_NAME = com.warp.custom

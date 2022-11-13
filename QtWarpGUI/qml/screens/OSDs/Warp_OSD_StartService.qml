@@ -44,13 +44,15 @@ Item {
       width: popup.width
       font {
         pixelSize: attributes.guideTextSize
-        bold: true
+        bold: false
       }
       textFormat: Text.RichText
       horizontalAlignment: Text.AlignHCenter
-      wrapMode: Text.WordWrap
       color: Constants.ALMOST_BLACK
-      text: "<br><br>Unable to connect to CloudflareWARP daemon.<br>Maybe the daemon is not running?<br>Start warp-svc.service in Setup."
+      text: qsTr("<br>%1<br>%2<br><br>%3").arg(
+              Translator.STR_POPUP_REQ_START_SERVICE_LINE_1).arg(
+              Translator.STR_POPUP_REQ_START_SERVICE_LINE_2).arg(
+              Translator.STR_POPUP_REQ_START_SERVICE_LINE_3)
     }
 
     KCommon.KButton {
@@ -69,7 +71,7 @@ Item {
       labelBold: true
       nColor: Constants.RED_OPTION_N
       pColor: Constants.RED_OPTION_P
-      label: "Close"
+      label: Translator.STR_LABEL_CANCEL
       onClicked: {
         attributes.hiding = true
         QML_Handler.qmlSendRequestEvent(
@@ -93,7 +95,7 @@ Item {
       labelBold: true
       nColor: Constants.GREEN_OPTION_N
       pColor: Constants.GREEN_OPTION_P
-      label: "Go to Setting"
+      label: Translator.STR_LABEL_GO_TO_SETUP
       onClicked: {
         attributes.hiding = true
         QML_Handler.qmlSendRequestEvent(WarpEnums.EVT_REQ_GO_TO_SETTING)

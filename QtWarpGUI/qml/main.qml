@@ -8,7 +8,7 @@ KComponent.KWindow {
   width: Constants.WINDOW_WIDTH
   height: Constants.WINDOW_HEIGHT
   visible: true
-  title: qsTr("QtWarpGUI")
+  title: Translator.STR_MAIN_TITLE
 
   Loader {
     id: main_loader

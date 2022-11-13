@@ -1,6 +1,7 @@
 #include "TabListModel.h"
 #include "Constants.h"
 #include "Common.h"
+#include "Translator.h"
 
 TabListModel::TabListModel()
 {
@@ -55,9 +56,9 @@ void TabListModel::initializeTabList()
     LOG;
     beginResetModel();
     this->mTabList.clear();
-    this->mTabList.append(new TabInfo("Home",   Constants::instance().HOME_ICO()));
-    this->mTabList.append(new TabInfo("User",   Constants::instance().USER_ICO()));
-    this->mTabList.append(new TabInfo("Setup",  Constants::instance().SETUP_ICO()));
-    this->mTabList.append(new TabInfo("Info",   Constants::instance().INFO_ICO()));
+    this->mTabList.append(new TabInfo(Translator::instance().STR_TAB_HOME(),    Constants::instance().HOME_ICO()));
+    this->mTabList.append(new TabInfo(Translator::instance().STR_TAB_USER(),    Constants::instance().USER_ICO()));
+    this->mTabList.append(new TabInfo(Translator::instance().STR_TAB_SETTING(), Constants::instance().SETUP_ICO()));
+    this->mTabList.append(new TabInfo(Translator::instance().STR_TAB_INFO(),    Constants::instance().INFO_ICO()));
     endResetModel();
 }

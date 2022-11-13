@@ -8,6 +8,7 @@
 #include <QQmlComponent>
 #include <QQuickItem>
 #include <QQuickWindow>
+#include "Translator.h"
 
 AppEngine::AppEngine(QGuiApplication *app)
     : m_app { app }

@@ -15,7 +15,7 @@ Rectangle {
     Column {
       KCommon.KSwitchSetting {
         id: setting_1
-        label: "Start warp-svc.service"
+        label: Translator.STR_START_WARP_SVC
         isEnabled: QML_Model.qmlActiveStatus
         onSwitched: {
           QML_Handler.qmlSendRequestEvent(
@@ -25,8 +25,8 @@ Rectangle {
       }
       KCommon.KSwitchSetting {
         id: setting_2
-        label: "Enable warp-svc.service"
-        guideText: "Autostart warp-svc.service on booting"
+        label: Translator.STR_ENABLE_WARP_SVC
+        guideText: Translator.STR_ENABLE_WARP_SVC_GUIDE
         isEnabled: QML_Model.qmlEnableStatus
         onSwitched: {
           QML_Handler.qmlSendRequestEvent(

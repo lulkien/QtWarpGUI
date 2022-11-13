@@ -60,7 +60,7 @@ Rectangle {
       bold: true
     }
 
-    text: name
+    text: Translator.translate(name) + Translator.qmlLanguageUpdate
 
     Behavior on opacity {
       NumberAnimation {
