@@ -7,11 +7,11 @@
 
 QHash<WarpEnums::Language, QString> LANGUAGE_TABLE =
 {
-    {   WarpEnums::en_US    ,   Constants::instance().EN_US_TRANSLATION()   },
+    {   WarpEnums::EN_US    ,   Constants::instance().EN_US_TRANSLATION()   },
 };
 
 Translator::Translator()
-    : mCurrentLanguage  { WarpEnums::en_US }
+    : mCurrentLanguage  { WarpEnums::EN_US }
 {
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
     updateLanguage();

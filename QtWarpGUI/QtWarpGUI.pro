@@ -1,7 +1,7 @@
 QT += quick qml
 CONFIG += qmltypes
 
-DEFINES += WARP_DEBUG
+#DEFINES += WARP_DEBUG
 DEFINES += USING_OSD_ANIMATION
 
 INCLUDEPATH += \
@@ -61,9 +61,10 @@ qml_file.prefix = /$${TARGET}
 img_files.files += \
         res/images/cloudflare.svg   \
         res/images/home.svg         \
-        res/images/user.svg         \
+        res/images/info.svg         \
         res/images/setup.svg        \
-        res/images/info.svg
+        res/images/power.svg        \
+        res/images/user.svg
 img_files.prefix = /$${TARGET}
 
 # Declare translation qm files

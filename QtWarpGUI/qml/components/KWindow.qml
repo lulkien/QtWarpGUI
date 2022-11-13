@@ -8,7 +8,7 @@ Window {
   minimumHeight: height
   maximumWidth: width
   minimumWidth: width
-  flags: Qt.Window | Qt.WindowMinimizeButtonHint | Qt.WindowCloseButtonHint
+  flags: Qt.Window | Qt.WindowMinimizeButtonHint
 
   // signal declare
   signal notifySystrayVisibleChanged(bool state)

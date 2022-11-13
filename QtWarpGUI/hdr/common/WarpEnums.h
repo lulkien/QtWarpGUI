@@ -60,8 +60,15 @@ public:
     Q_ENUM(OSDIndex)
 
     enum Language {
-        en_US = 0,
+        EN_US = 0,
     };
+    Q_ENUM(Language)
+
+    enum AccountType {
+        FREE = 0,
+        UNLIMITED,
+    };
+    Q_ENUM(AccountType)
 
 public:
     WarpEnums() {}

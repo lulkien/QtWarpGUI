@@ -28,10 +28,11 @@ Item {
     id: spacer
     anchors {
       horizontalCenter: root_bar.right
+      horizontalCenterOffset: width / 2
       verticalCenter: root_bar.verticalCenter
     }
     color: Constants.ALMOST_BLACK
-    width: 6
+    width: 4
     height: root_bar.height
   }
 
@@ -66,6 +67,37 @@ Item {
           }
         }
       }
+    }
+  }
+
+  KCommon.KButton {
+    id: power_button
+    width: root_bar.width * 0.7
+    height: width
+    isRounded: true
+    borderColor: Constants.INVISIBLE
+    nColor: Constants.INVISIBLE
+    pColor: Constants.RED_OPTION_P
+
+    Image {
+      width: Constants.TAB_ICO_SIZE
+      height: Constants.TAB_ICO_SIZE
+      anchors.centerIn: power_button
+      antialiasing: true
+      smooth: true
+      sourceSize.width: width
+      sourceSize.height: height
+      source: Constants.POWER_ICO
+    }
+
+    anchors {
+      horizontalCenter: root_bar.horizontalCenter
+      bottom: root_bar.bottom
+      bottomMargin: (root_bar.width - width) / 2
+    }
+
+    onClicked: {
+      Qt.quit()
     }
   }
 }

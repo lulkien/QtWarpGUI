@@ -32,6 +32,7 @@ void WarpCliController::initSystemSettings()
     QProcess process;
     QString _cmd;
     QString _stdout;
+    bool _result;
 
     // check service enabled
     _cmd = "systemctl is-enabled warp-svc.service";
@@ -42,7 +43,8 @@ void WarpCliController::initSystemSettings()
         abort();
     }
     _stdout = QString(process.readAllStandardOutput()).trimmed();
-    ApplicationModel::instance().setWarpSvcEnabled(QString("enabled") == _stdout);
+    _result = QString("enabled") == _stdout;
+    ApplicationModel::instance().setWarpSvcEnabled(_result);
     LOG << _cmd << "---->" << _stdout;
 
     // check service active
@@ -54,8 +56,24 @@ void WarpCliController::initSystemSettings()
         abort();
     }
     _stdout = QString(process.readAllStandardOutput()).trimmed();
-    ApplicationModel::instance().setWarpSvcActivated(QString("active") == _stdout);
+    _result = QString("active") == _stdout;
+    ApplicationModel::instance().setWarpSvcActivated(_result);
     LOG << _cmd << "---->" << _stdout;
+
+    // check connection
+    _cmd = "warp-cli status";
+    process.startCommand(_cmd, QProcess::ReadOnly);
+    if (!process.waitForFinished(1000))
+    {
+        LOG << "FAIL TO CHECK WARP CONNECTION... ABORT!";
+        abort();
+    }
+    _stdout = QString(process.readAllStandardOutput()).trimmed();
+    _result = _stdout.contains("Connected", Qt::CaseSensitive);
+    ApplicationModel::instance().setWarpConnected(_result);
+    LOG << _cmd << "---->" << _stdout;
+
+    // init user info
     return;
 }
 

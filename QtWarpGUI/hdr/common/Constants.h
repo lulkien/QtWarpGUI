@@ -79,11 +79,12 @@ private:
     DEFINES(QUrl,       OSD_REQ_START_SVC,      u"qrc:/QtWarpGUI/qml/screens/OSDs/Warp_OSD_StartService.qml"_qs)
 
     // Images Url
-    DEFINES(QUrl,       TRAY_ICO,               u"qrc:/QtWarpGUI/res/images/cloudflare.svg"_qs)
     DEFINES(QUrl,       HOME_ICO,               u"qrc:/QtWarpGUI/res/images/home.svg"_qs)
-    DEFINES(QUrl,       USER_ICO,               u"qrc:/QtWarpGUI/res/images/user.svg"_qs)
-    DEFINES(QUrl,       SETUP_ICO,              u"qrc:/QtWarpGUI/res/images/setup.svg"_qs)
     DEFINES(QUrl,       INFO_ICO,               u"qrc:/QtWarpGUI/res/images/info.svg"_qs)
+    DEFINES(QUrl,       POWER_ICO,              u"qrc:/QtWarpGUI/res/images/power.svg"_qs)
+    DEFINES(QUrl,       SETUP_ICO,              u"qrc:/QtWarpGUI/res/images/setup.svg"_qs)
+    DEFINES(QUrl,       TRAY_ICO,               u"qrc:/QtWarpGUI/res/images/cloudflare.svg"_qs)
+    DEFINES(QUrl,       USER_ICO,               u"qrc:/QtWarpGUI/res/images/user.svg"_qs)
 
     // Translation Url
     DEFINES(QString,    EN_US_TRANSLATION,      u":/QtWarpGUI/res/translations/qm/en_US.qm"_qs)
